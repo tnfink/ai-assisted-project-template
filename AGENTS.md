@@ -36,10 +36,11 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   explaining what it does and how to call it.
 - **Skills** go into `skills/`, one subdirectory per skill. Check this directory for a matching skill
   before starting a task and follow it if one applies.
-- **Tasks** go into `aitasks/`, one file per task, based on `aitasks/TEMPLATE.md`. When asked to work
-  on a task, read its file in `aitasks/` first and treat it as the specification. Make sure all tasks
-  listed under its dependencies are done before starting, and check every acceptance criterion
-  before reporting the task as complete.
+- **Tasks** go into `aitasks/`, one file per task, created with `scripts/tasks.sh new` (the task
+  template is defined in `scripts/tasks.sh`). When asked to work on a task, read its file in
+  `aitasks/` first and treat it as the specification. Make sure all tasks listed under its
+  dependencies are done before starting, and check every acceptance criterion before reporting
+  the task as complete.
 - **Task status** is kept in the task file and is one of:
   - `open`: not started yet
   - `in-work`: currently being worked on
@@ -51,6 +52,11 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   Every status change must also be recorded as a new row in the task's **History** section,
   with an ISO 8601 timestamp including time zone (e.g. `2026-11-11T14:30+0100`; get it with
   `date +%Y-%m-%dT%H:%M%z`) and, for `waiting` and `aborted`, the reason.
+- **Task script:** use `scripts/tasks.sh` for task handling, e.g. `scripts/tasks.sh list open`
+  lists all open tasks and `scripts/tasks.sh new "Short description"` creates a new task with the
+  next free ID from the template (`scripts/tasks.sh help` shows all commands). Always create new
+  tasks with this script, then fill in the remaining sections of the created file. The script reads the
+  `ID`, `Status` and `Short description` rows of the header table, so keep their format intact.
 - Keep this file up to date when the structure or conventions of the project change.
 
 ## Working approach
