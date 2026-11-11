@@ -6,9 +6,10 @@ marked as `done`**, in addition to the task's own acceptance criteria. The skill
 
 ## Criteria
 
-<!-- No criteria defined yet. Add them as checklist items, e.g.:
-- [ ] **The build succeeds.** ...
--->
+- [ ] **The documentation is updated.** All documentation affected by the task reflects the new
+      state of the project: the technical documentation in `doc/`, `README.md`, and the AI docs
+      (`AGENTS.md`, skills in `skills/`) if the task changes the structure, conventions or way of
+      working. Check by comparing the changes made in the task with the documents describing them.
 
 ## Changing this document
 

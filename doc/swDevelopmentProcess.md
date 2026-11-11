@@ -68,7 +68,7 @@ a successful build, a passing test suite and met static quality metrics.
 | Skill            | Purpose                                                                                       | Status in this project |
 |------------------|-----------------------------------------------------------------------------------------------|------------------------|
 | `add-task`       | Creates a new AI task from the information and wishes of a human. The AICA can add project-specific guidelines to the task automatically. | available (`skills/add-task/`) |
-| `improve-task`   | Improves an existing AI task based on the current state of the project and the AICA's knowledge, so that it is functionally complete, technically feasible and unambiguous. | planned |
+| `improve-task`   | Improves an existing AI task based on the current state of the project and the AICA's knowledge, so that it is functionally complete, technically feasible and unambiguous. It checks whether the task is still valid, updates it if not, and looks for other errors and possible improvements. | available (`skills/improve-task/`) |
 | `implement-task` | Implements an AI task. Before starting, it checks the task against the Definition of Ready (`doc/aiTaskDefinitionOfReady.md`). After a successful implementation, it checks the acceptance criteria and the Definition of Done (`doc/aiTaskDefinitionOfDone.md`) and marks the task as `done`, documenting the completion of the work step. | available (`skills/implement-task/`) |
 
 Skills are stored in `skills/`; `.claude/skills` links to it, so Claude Code registers them

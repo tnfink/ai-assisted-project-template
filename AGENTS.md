@@ -45,7 +45,8 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   not, complete the task description first or ask the user. Make sure all tasks listed under its
   dependencies are done before starting, and check every acceptance criterion and every criterion
   in [`doc/aiTaskDefinitionOfDone.md`](doc/aiTaskDefinitionOfDone.md) before reporting the task as
-  complete. Use the skill `implement-task` to implement tasks.
+  complete. Use the skill `improve-task` to review a task before implementing it, and the skill
+  `implement-task` to implement it.
 - **Task status** is kept in the task file and is one of:
   - `open`: not started yet
   - `in-work`: currently being worked on
