@@ -40,9 +40,12 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   into `.claude/skills` directly (see `doc/developerInfrastructure.md` for symbolic links on Windows).
 - **Tasks** go into `aitasks/`, one file per task, created with `scripts/tasks.sh new` (the task
   template is defined in `scripts/tasks.sh`). When asked to work on a task, read its file in
-  `aitasks/` first and treat it as the specification. Make sure all tasks listed under its
-  dependencies are done before starting, and check every acceptance criterion before reporting
-  the task as complete.
+  `aitasks/` first and treat it as the specification. Check that the task fulfills all criteria in
+  [`doc/aiTaskDefinitionOfReady.md`](doc/aiTaskDefinitionOfReady.md) before starting; if it does
+  not, complete the task description first or ask the user. Make sure all tasks listed under its
+  dependencies are done before starting, and check every acceptance criterion and every criterion
+  in [`doc/aiTaskDefinitionOfDone.md`](doc/aiTaskDefinitionOfDone.md) before reporting the task as
+  complete. Use the skill `implement-task` to implement tasks.
 - **Task status** is kept in the task file and is one of:
   - `open`: not started yet
   - `in-work`: currently being worked on
@@ -68,6 +71,9 @@ Rely only on these tools. Do not write scripts or instructions that need other t
 - Keep this file up to date when the structure or conventions of the project change.
 
 ## Working approach
+
+The development process of this project is described in
+[`doc/swDevelopmentProcess.md`](doc/swDevelopmentProcess.md). In short:
 
 1. Read the relevant task in `aitasks/` and any related documentation in `doc/`.
 2. Check `skills/` for applicable skills.
