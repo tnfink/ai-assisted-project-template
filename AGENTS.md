@@ -54,6 +54,12 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   Every status change must also be recorded as a new row in the task's **History** section,
   with an ISO 8601 timestamp including time zone (e.g. `2026-11-11T14:30+0100`; get it with
   `date +%Y-%m-%dT%H:%M%z`) and, for `waiting` and `aborted`, the reason.
+- **Task numbers show the order:** tasks are numbered in the order they should be done. If a new
+  task has to be done before existing ones, renumber the tasks so the numbers still show the
+  order, and update all references to the changed IDs (dependencies and text).
+- **Project initialization:** `scripts/init-project.sh NAME` turns a fresh clone of this template
+  into a new project (renames it, resets or keeps the git history). It deletes the git history by
+  default, so only run it as part of the corresponding task and after the user has confirmed.
 - **Task script:** use `scripts/tasks.sh` for task handling, e.g. `scripts/tasks.sh list open`
   lists all open tasks and `scripts/tasks.sh new "Short description"` creates a new task with the
   next free ID from the template (`scripts/tasks.sh help` shows all commands). Always create new

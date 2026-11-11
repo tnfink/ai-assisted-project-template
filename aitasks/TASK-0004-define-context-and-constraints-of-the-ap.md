@@ -1,12 +1,12 @@
-# TASK-0003: Define context and constraints of the application
+# TASK-0004: Define context and constraints of the application
 
 | Field             | Value                                                         |
 |-------------------|---------------------------------------------------------------|
-| **ID**            | TASK-0003 |
+| **ID**            | TASK-0004 |
 | **Short description** | Define context and constraints of the application |
 | **Status**        | open <!-- One of: open, in-work, waiting, done, aborted -->   |
 | **External link** | none |
-| **Dependencies**  | TASK-0001 |
+| **Dependencies**  | TASK-0002 |
 
 ## Motivation
 
@@ -27,7 +27,7 @@ questions:
 
 Record the results in `doc/context.md`.
 
-This should be done after TASK-0001, so the domain, problems and features of the application
+This should be done after TASK-0002, so the domain, problems and features of the application
 described in `README.md` are known. The answers come from the user; the AI asks for them and
 does not invent them.
 

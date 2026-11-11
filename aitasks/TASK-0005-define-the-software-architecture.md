@@ -1,24 +1,24 @@
-# TASK-0004: Define the software architecture
+# TASK-0005: Define the software architecture
 
 | Field             | Value                                                         |
 |-------------------|---------------------------------------------------------------|
-| **ID**            | TASK-0004 |
+| **ID**            | TASK-0005 |
 | **Short description** | Define the software architecture |
 | **Status**        | open <!-- One of: open, in-work, waiting, done, aborted -->   |
 | **External link** | none |
-| **Dependencies**  | TASK-0001, TASK-0002, TASK-0003 |
+| **Dependencies**  | TASK-0002, TASK-0003, TASK-0004 |
 
 ## Motivation
 
 The software architecture is the foundation for all further implementation work. Once the
-features of the application (TASK-0001), its quality objectives (TASK-0002) and its context and
-constraints (TASK-0003) are known, a fitting architecture can be defined. A documented,
+features of the application (TASK-0002), its quality objectives (TASK-0003) and its context and
+constraints (TASK-0004) are known, a fitting architecture can be defined. A documented,
 user-approved architecture gives humans and AI agents a common structure to follow and keeps
 implementation decisions consistent.
 
 ## Task description
 
-After TASK-0001, TASK-0002 and TASK-0003 are done, define a software architecture:
+After TASK-0002, TASK-0003 and TASK-0004 are done, define a software architecture:
 
 1. Introduce a fitting architecture to the user, based on the results of the previous tasks:
    - the domain, problems and features in `README.md`,

@@ -1,12 +1,12 @@
-# TASK-0002: Define quality objectives based on ISO 25010
+# TASK-0003: Define quality objectives based on ISO 25010
 
 | Field             | Value                                                         |
 |-------------------|---------------------------------------------------------------|
-| **ID**            | TASK-0002 |
+| **ID**            | TASK-0003 |
 | **Short description** | Define quality objectives based on ISO 25010 |
 | **Status**        | open <!-- One of: open, in-work, waiting, done, aborted -->   |
 | **External link** | none |
-| **Dependencies**  | TASK-0001 |
+| **Dependencies**  | TASK-0002 |
 
 ## Motivation
 

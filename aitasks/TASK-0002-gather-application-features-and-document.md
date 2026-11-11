@@ -1,16 +1,16 @@
-# TASK-0001: Gather application features and document them in README.md
+# TASK-0002: Gather application features and document them in README.md
 
 | Field             | Value                                                         |
 |-------------------|---------------------------------------------------------------|
-| **ID**            | TASK-0001 |
+| **ID**            | TASK-0002 |
 | **Short description** | Gather application features and document them in README.md |
 | **Status**        | open <!-- One of: open, in-work, waiting, done, aborted -->   |
 | **External link** | none |
-| **Dependencies**  | none |
+| **Dependencies**  | TASK-0001 |
 
 ## Motivation
 
-This is the first step of a project created from this template. As long as the domain of the
+This is the first step after initializing a project created from this template. As long as the domain of the
 application, the problems it solves and the features it provides are unknown, the AI coding
 assistant has no basis for planning or implementing anything. Collecting this information from
 the user and recording it in a central `README.md` gives humans and AI agents a shared
