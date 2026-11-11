@@ -20,8 +20,8 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TASKS_DIR="${AITASKS_DIR:-$SCRIPT_DIR/../aitasks}"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TASKS_DIR="${AITASKS_DIR:-$REPO_DIR/aitasks}"
 VALID_STATES="open in-work waiting done aborted"
 
 # usage: prints the header comment of this script (all comment lines after the
