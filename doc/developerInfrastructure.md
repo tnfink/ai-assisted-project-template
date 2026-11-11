@@ -29,6 +29,29 @@ macOS ships with Bash 3.2, so scripts must not use features of newer Bash versio
 - Scripts that need third-party packages must document them (e.g. in a `requirements.txt`)
   instead of assuming they are installed globally.
 
+## Git: symbolic links
+
+The repository contains symbolic links, e.g. `.claude/skills` → `../skills`, which makes the skills
+in `skills/` available to Claude Code. Git must check them out as real symbolic links.
+
+- **macOS / Linux:** works out of the box.
+- **Windows:** Git for Windows checks out symbolic links as plain text files by default, which
+  silently breaks them. To enable symbolic links:
+  1. Enable *Developer Mode* in the Windows settings (*System → For developers*), or run Git
+     with administrator rights.
+  2. Enable symbolic links in Git, either by selecting *Enable symbolic links* in the Git for
+     Windows installer or with:
+
+     ```bash
+     git config --global core.symlinks true
+     ```
+
+  3. Clone the repository afterwards. For an existing clone, run `git config core.symlinks true`
+     inside it and restore the links with `git checkout -- .claude/skills`.
+
+  Check: `ls -l .claude/skills` must show `skills -> ../skills`, and `ls .claude/skills/` must
+  list the skill directories.
+
 ## Adding a tool
 
 1. Add a row to the table above with minimum version, purpose and a check command.

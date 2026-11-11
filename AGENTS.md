@@ -34,8 +34,10 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   (this `AGENTS.md` and a top-level `README.md` are the exceptions).
 - **Scripts** go into `scripts/`. Make shell scripts executable and give each a short header comment
   explaining what it does and how to call it.
-- **Skills** go into `skills/`, one subdirectory per skill. Check this directory for a matching skill
-  before starting a task and follow it if one applies.
+- **Skills** go into `skills/`, one subdirectory per skill with a `SKILL.md`. Check this directory
+  for a matching skill before starting a task and follow it if one applies. `.claude/skills` is a
+  symbolic link to `skills/`, so Claude Code registers these skills natively; do not put skills
+  into `.claude/skills` directly (see `doc/developerInfrastructure.md` for symbolic links on Windows).
 - **Tasks** go into `aitasks/`, one file per task, created with `scripts/tasks.sh new` (the task
   template is defined in `scripts/tasks.sh`). When asked to work on a task, read its file in
   `aitasks/` first and treat it as the specification. Make sure all tasks listed under its
