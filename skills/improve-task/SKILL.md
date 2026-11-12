@@ -83,8 +83,8 @@ constraints wherever it is still correct.
 - Do not change the **ID** row, the **Status** row or the **History** section, except:
   - **Short description:** only with the user's consent; keep the row format and update the
     title line to match. The file name stays unchanged.
-  - **Abort:** if the user agrees that the task is obsolete, set the status to `aborted` and add
-    a history row with the timestamp (`date +%Y-%m-%dT%H:%M%z`), the status and the reason.
+  - **Abort:** if the user agrees that the task is obsolete, set the status with
+    `scripts/tasks.sh status <ID> aborted "<reason>"`; the script records it in the history.
 - **Split:** create the new tasks with the skill `add-task`, reduce this task accordingly and
   link the tasks via dependencies. If the new tasks must be done before this one, keep the task
   numbers in order as described in `AGENTS.md`.

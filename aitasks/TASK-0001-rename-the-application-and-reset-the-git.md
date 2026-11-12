@@ -11,8 +11,8 @@
 ## Motivation
 
 This repository is a template. A project created from it must first get its own name and its
-own git repository, otherwise it still carries the template's name (e.g. in the IntelliJ module
-file and in `AGENTS.md`) and the template's git history and remote. Doing this as the very first
+own git repository, otherwise it is still described as the template (e.g. in `AGENTS.md`)
+and carries the template's git history and remote. Doing this as the very first
 step ensures that all following tasks work on the new project.
 
 ## Task description
@@ -36,13 +36,13 @@ Renaming the project directory itself is out of scope; the user chooses it when 
 
 - [ ] The user has given the application name and decided whether to reset or keep the git
       history.
-- [ ] The IntelliJ module file is named `<NAME>.iml` and `.idea/modules.xml` references it.
 - [ ] The section "About this project" in `AGENTS.md` names the new project and no longer
       describes the repository as a template.
 - [ ] Reset: `git log` shows a single initial commit and `git remote` lists no remotes.
 - [ ] Kept history: the remote `origin` has been renamed to `upstream` and the changes are
       committed.
-- [ ] `git status` shows no uncommitted changes.
+- [ ] `git status` shows no uncommitted changes outside `aitasks/` (changes to this task's file,
+      e.g. ticked criteria and its status, are expected).
 
 ## History
 

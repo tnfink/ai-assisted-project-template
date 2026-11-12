@@ -12,9 +12,8 @@
 # --yes            Do not ask for confirmation (for non-interactive use)
 #
 # Steps:
-#   1. Renames the IntelliJ module file (*.iml) to NAME.iml and updates .idea/modules.xml.
-#   2. Replaces the "About this project" section in AGENTS.md with one for project NAME.
-#   3. Resets the git repository (or, with --keep-history, renames origin to upstream)
+#   1. Replaces the "About this project" section in AGENTS.md with one for project NAME.
+#   2. Resets the git repository (or, with --keep-history, renames origin to upstream)
 #      and commits the result.
 #
 # The working tree must be clean before running this script; only changes in aitasks/
@@ -75,23 +74,12 @@ if [ -n "$(git status --porcelain -- . ':(exclude)aitasks')" ]; then
     die "the working tree has uncommitted changes outside aitasks/; commit or stash them first"
 fi
 
-OLD_IML=""
-for file in *.iml; do
-    [ -e "$file" ] || continue
-    [ -z "$OLD_IML" ] || die "more than one *.iml file found; rename the module manually"
-    OLD_IML="$file"
-done
-NEW_IML="$NAME.iml"
-
 HAS_ORIGIN=false
 git remote get-url origin >/dev/null 2>&1 && HAS_ORIGIN=true
 
 # --- Confirm ---------------------------------------------------------------
 
 echo "This will initialize the project '$NAME' in $REPO_DIR:"
-if [ -n "$OLD_IML" ] && [ "$OLD_IML" != "$NEW_IML" ]; then
-    echo "  - rename $OLD_IML to $NEW_IML and update .idea/modules.xml"
-fi
 echo "  - replace the 'About this project' section in AGENTS.md"
 if $KEEP_HISTORY; then
     if $HAS_ORIGIN; then
@@ -113,26 +101,7 @@ if ! $ASSUME_YES; then
     esac
 fi
 
-# --- 1. Rename the IntelliJ module ----------------------------------------
-
-if [ -n "$OLD_IML" ] && [ "$OLD_IML" != "$NEW_IML" ]; then
-    mv "$OLD_IML" "$NEW_IML"
-    if [ -f .idea/modules.xml ]; then
-        OLD="$OLD_IML" NEW="$NEW_IML" awk '
-            {
-                line = $0; out = ""
-                while ((pos = index(line, ENVIRON["OLD"])) > 0) {
-                    out = out substr(line, 1, pos - 1) ENVIRON["NEW"]
-                    line = substr(line, pos + length(ENVIRON["OLD"]))
-                }
-                print out line
-            }' .idea/modules.xml > .idea/modules.xml.tmp
-        mv .idea/modules.xml.tmp .idea/modules.xml
-    fi
-    echo "Renamed $OLD_IML to $NEW_IML."
-fi
-
-# --- 2. Update AGENTS.md ---------------------------------------------------
+# --- 1. Update AGENTS.md ---------------------------------------------------
 
 if [ -f AGENTS.md ]; then
     NAME="$NAME" awk '
@@ -155,7 +124,7 @@ if [ -f AGENTS.md ]; then
     echo "Updated AGENTS.md."
 fi
 
-# --- 3. Git ----------------------------------------------------------------
+# --- 2. Git ----------------------------------------------------------------
 
 if $KEEP_HISTORY; then
     if $HAS_ORIGIN; then

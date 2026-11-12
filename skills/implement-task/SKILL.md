@@ -34,10 +34,13 @@ with the user's consent, then check again.
 
 ## 3. Start the task
 
-1. Set the **Status** in the header table to `in-work`. Keep the row's format intact; only
-   replace the value.
-2. Add a row to the **History** section with the current timestamp
-   (`date +%Y-%m-%dT%H:%M%z`), the status `in-work` and the comment `Implementation started`.
+Set the status to `in-work`; the script also records the change in the task's **History**:
+
+```bash
+scripts/tasks.sh status <ID> in-work "Implementation started"
+```
+
+Always change the status with `scripts/tasks.sh status`, never by editing the task file.
 
 ## 4. Implement the task
 
@@ -48,8 +51,8 @@ with the user's consent, then check again.
   choosing an architecture), ask the user; never invent the user's answers.
 - If you discover additional work that is needed but outside this task, do not do it. Propose
   creating a new task with the skill `add-task` instead.
-- If you are blocked (e.g. waiting for the user or an external party), set the status to
-  `waiting`, add a history row with the reason, and tell the user.
+- If you are blocked (e.g. waiting for the user or an external party), set the status with
+  `scripts/tasks.sh status <ID> waiting "<reason>"` and tell the user.
 
 ## 5. Check before completion
 
@@ -65,11 +68,10 @@ with the user's consent, then check again.
 
 Only when all acceptance criteria and all Definition of Done criteria are fulfilled:
 
-1. Set the **Status** to `done`.
-2. Add a history row with the current timestamp, the status `done` and the comment
-   `All acceptance criteria and the Definition of Done are fulfilled`.
-3. Run `scripts/tasks.sh list done` and check that the task appears.
-4. Report to the user: what was done, which files were changed, how each acceptance criterion
+1. Set the status to `done`:
+   `scripts/tasks.sh status <ID> done "All acceptance criteria and the Definition of Done are fulfilled"`
+2. Run `scripts/tasks.sh list done` and check that the task appears.
+3. Report to the user: what was done, which files were changed, how each acceptance criterion
    was verified, and any open points or proposed follow-up tasks.
 
 Do not commit changes unless the user asks for it.

@@ -8,6 +8,10 @@
 #                                             -deps also shows the dependencies of each task
 #   scripts/tasks.sh new SHORT_DESCRIPTION    Create a new task with the next free ID
 #                                             (TASK-0001, TASK-0002, ...) and status open
+#   scripts/tasks.sh status ID STATE [COMMENT]
+#                                             Set the status of task ID (e.g. TASK-0003) and
+#                                             add a row to its History; COMMENT is required
+#                                             for waiting and aborted (state the reason)
 #   scripts/tasks.sh help                     Show this help
 #
 # STATE is one of: open, in-work, waiting, done, aborted
@@ -163,10 +167,84 @@ EOF
 }
 
 # slugify TEXT: lowercase, non-alphanumerics replaced by "-", at most 40 characters.
+# Longer slugs are cut at a word boundary (a single word longer than 40 characters is cut).
 slugify() {
-    echo "$1" | tr '[:upper:]' '[:lower:]' \
-        | sed -e 's/[^a-z0-9][^a-z0-9]*/-/g' -e 's/^-//' \
-        | cut -c1-40 | sed 's/-$//'
+    local slug short
+    slug="$(echo "$1" | tr '[:upper:]' '[:lower:]' \
+        | sed -e 's/[^a-z0-9][^a-z0-9]*/-/g' -e 's/^-//' -e 's/-$//')"
+    if [ "${#slug}" -le 40 ]; then
+        echo "$slug"
+        return
+    fi
+    # Keep 41 characters, so a word ending exactly at position 40 is kept,
+    # then drop the last (incomplete) word.
+    short="$(echo "$slug" | cut -c1-41 | sed 's/-[^-]*$//')"
+    if [ "${#short}" -gt 40 ] || [ -z "$short" ]; then
+        short="$(echo "$slug" | cut -c1-40)"
+    fi
+    echo "$short"
+}
+
+# find_task ID: prints the file of the task with the given ID (TASK-0003, or just 3 / 0003).
+find_task() {
+    local id="$1" file
+    case "$id" in
+        TASK-*) ;;
+        *[!0-9]*|"") die "invalid task ID '$1' (expected e.g. TASK-0003)" ;;
+        *) id="$(printf 'TASK-%04d' $((10#$id)))" ;;
+    esac
+    while IFS= read -r file; do
+        [ -n "$file" ] || continue
+        if [ "$(get_field "$file" "ID")" = "$id" ]; then
+            echo "$file"
+            return
+        fi
+    done <<EOF
+$(task_files)
+EOF
+    die "task $id not found in $TASKS_DIR"
+}
+
+# cmd_status ID STATE [COMMENT]: sets the status of a task and records the change
+# in its History section.
+cmd_status() {
+    local file new_state="$2" comment="${3:-}" old_state timestamp
+    file="$(find_task "$1")"
+    is_valid_state "$new_state" || die "invalid state '$new_state' (valid: $VALID_STATES)"
+    case "$comment" in
+        *'|'*) die "COMMENT must not contain '|'" ;;
+    esac
+    if [ -z "$comment" ]; then
+        case "$new_state" in
+            waiting|aborted) die "a COMMENT with the reason is required for '$new_state'" ;;
+        esac
+    fi
+    old_state="$(get_field "$file" "Status")"
+    [ "$old_state" != "$new_state" ] || die "$1 already has the status '$new_state'"
+    timestamp="$(date +%Y-%m-%dT%H:%M%z)"
+
+    # Pass 1 finds the last table row of the History section; pass 2 replaces the
+    # status value (keeping the comment in the cell) and appends the new history row.
+    STATE="$new_state" ROW="| $timestamp | $new_state | $comment |" awk -F'|' -v OFS='|' '
+        NR == FNR {
+            if (/^## /) in_history = ($0 ~ /^## History/)
+            if (in_history && /^\|/) last_row = FNR
+            next
+        }
+        {
+            key = $2
+            gsub(/^[ \t]+|[ \t]+$/, "", key)
+            if (key == "**Status**") {
+                if (!sub(/^[ \t]*[a-z-]+/, " " ENVIRON["STATE"], $3)) $3 = " " ENVIRON["STATE"] " " $3
+            }
+            print
+            if (FNR == last_row) print ENVIRON["ROW"]
+        }
+        END { if (!last_row) exit 1 }
+    ' "$file" "$file" > "$file.tmp" || { rm -f "$file.tmp"; die "no History table found in $file"; }
+    mv "$file.tmp" "$file"
+
+    echo "$(get_field "$file" "ID"): ${old_state:-?} -> $new_state"
 }
 
 # print_template: prints the template for a new task. The placeholders {{ID}},
@@ -275,6 +353,11 @@ main() {
         new)
             [ $# -eq 1 ] || die "usage: tasks.sh new SHORT_DESCRIPTION (quote it if it contains spaces)"
             cmd_new "$1"
+            ;;
+        status)
+            [ $# -ge 2 ] && [ $# -le 3 ] \
+                || die "usage: tasks.sh status ID STATE [COMMENT] (quote COMMENT if it contains spaces)"
+            cmd_status "$@"
             ;;
         help|-h|--help)
             usage

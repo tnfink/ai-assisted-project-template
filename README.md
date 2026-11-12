@@ -30,8 +30,9 @@ Key documents and tools:
 - [`doc/aiTaskDefinitionOfReady.md`](doc/aiTaskDefinitionOfReady.md) /
   [`doc/aiTaskDefinitionOfDone.md`](doc/aiTaskDefinitionOfDone.md): criteria a task must meet
   before work starts and before it is done
-- `scripts/tasks.sh`: lists and creates tasks
+- `scripts/tasks.sh`: lists and creates tasks and changes their status
 - `scripts/init-project.sh`: turns a fresh clone of the template into a new project
+- `scripts/test.sh`: automated tests for the scripts
 - Skills `add-task`, `improve-task` and `implement-task`: create, review and implement tasks
 
 ## Prerequisites
@@ -88,6 +89,8 @@ Show the current tasks and their dependencies:
 scripts/tasks.sh list          # all tasks
 scripts/tasks.sh list open     # only open tasks
 scripts/tasks.sh list -deps    # all tasks with their dependencies
+scripts/tasks.sh status TASK-0003 waiting "Waiting for the user's ratings"
+                               # change the status (recorded in the task's history)
 scripts/tasks.sh help          # all commands
 ```
 
@@ -100,4 +103,6 @@ status changes. Task numbers show the order in which tasks should be done.
   `doc/aiTaskDefinitionOfReady.md` and `doc/aiTaskDefinitionOfDone.md`.
 - **Skills:** add new skills as `skills/<name>/SKILL.md`.
 - **Tools:** add new tools to `doc/developerInfrastructure.md` before the AI uses them.
+- **Scripts:** add tests for new scripts or commands to `scripts/test.sh` and run it after
+  every change.
 - **Rules for the AI:** keep `AGENTS.md` up to date when structure or conventions change.

@@ -34,7 +34,8 @@ Rely only on these tools. Do not write scripts or instructions that need other t
 - **Documentation** goes into `doc/`. Do not scatter documentation files across the repository
   (this `AGENTS.md` and a top-level `README.md` are the exceptions).
 - **Scripts** go into `scripts/`. Make shell scripts executable and give each a short header comment
-  explaining what it does and how to call it.
+  explaining what it does and how to call it. The scripts are tested by `scripts/test.sh`: add
+  tests for every new script or command, and run `scripts/test.sh` after every change to a script.
 - **Skills** go into `skills/`, one subdirectory per skill with a `SKILL.md`. Check this directory
   for a matching skill before starting a task and follow it if one applies. `.claude/skills` is a
   symbolic link to `skills/`, so Claude Code registers these skills natively; do not put skills
@@ -56,9 +57,10 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   - `aborted`: will not be done (note the reason in the task)
 
   Set the status to `in-work` when starting a task and update it when the state changes.
-  Every status change must also be recorded as a new row in the task's **History** section,
-  with an ISO 8601 timestamp including time zone (e.g. `2026-11-11T14:30+0100`; get it with
-  `date +%Y-%m-%dT%H:%M%z`) and, for `waiting` and `aborted`, the reason.
+  Always change the status with `scripts/tasks.sh status ID STATE [COMMENT]` (e.g.
+  `scripts/tasks.sh status TASK-0003 waiting "Waiting for the user's ratings"`), never by editing
+  the task file: the script also records the change with a timestamp in the task's **History**
+  and requires a reason for `waiting` and `aborted`.
 - **Task numbers show the order:** tasks are numbered in the order they should be done. If a new
   task has to be done before existing ones, renumber the tasks so the numbers still show the
   order, and update all references to the changed IDs (dependencies and text).
