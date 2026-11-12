@@ -228,6 +228,18 @@ test_init_project() {
     check_equal "keep-history adds one commit" "2" "$(git -C "$repo" rev-list --count HEAD)"
     check_equal "keep-history renames origin to upstream" "upstream" "$(git -C "$repo" remote)"
     check_contains "keep-history updates AGENTS.md" "$(cat "$repo/AGENTS.md")" "**MyShop**"
+
+    # Keep git (repository created with "Use this template")
+    repo="$TMP/init-keep-git"
+    make_repo "$repo"
+    check_fails "init-project rejects --keep-git together with --keep-history" \
+        "$repo/scripts/init-project.sh" --keep-git --keep-history --yes MyShop
+    check "init-project --keep-git succeeds" "$repo/scripts/init-project.sh" --keep-git --yes MyShop
+    check_equal "keep-git adds one commit" "2" "$(git -C "$repo" rev-list --count HEAD)"
+    check_equal "keep-git keeps origin" "https://example.com/template.git" \
+        "$(git -C "$repo" remote get-url origin 2>/dev/null)"
+    check_equal "keep-git commits everything" "" "$(git -C "$repo" status --porcelain)"
+    check_contains "keep-git updates AGENTS.md" "$(cat "$repo/AGENTS.md")" "**MyShop**"
 }
 
 # ---------------------------------------------------------------------------

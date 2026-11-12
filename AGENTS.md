@@ -64,7 +64,7 @@ Rely only on these tools. Do not write scripts or instructions that need other t
 - **Task numbers show the order:** tasks are numbered in the order they should be done. If a new
   task has to be done before existing ones, renumber the tasks so the numbers still show the
   order, and update all references to the changed IDs (dependencies and text).
-- **Project initialization:** `scripts/init-project.sh NAME` turns a fresh clone of this template
+- **Project initialization:** `scripts/init-project.sh NAME` turns a new copy of this template
   into a new project (renames it, resets or keeps the git history). It deletes the git history by
   default, so only run it as part of the corresponding task and after the user has confirmed.
 - **Task script:** use `scripts/tasks.sh` for task handling, e.g. `scripts/tasks.sh list open`

@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
 #
-# init-project.sh - Turns a fresh clone of the project template into a new project.
+# init-project.sh - Turns a new copy of the project template into a new project.
 #
 # Usage:
-#   scripts/init-project.sh [--keep-history] [--yes] NAME
+#   scripts/init-project.sh [--keep-git | --keep-history] [--yes] NAME
 #
 # NAME             Name of the new project (letters, digits, ".", "_" and "-"; e.g. MyShop)
-# --keep-history   Keep the template's git history. The remote "origin" is renamed to
-#                  "upstream", so template updates can still be merged later.
-#                  Default: the git history is deleted and a new repository is created.
+# --keep-git       Keep the git history and all remotes as they are. Use this for a
+#                  repository created with GitHub's "Use this template" button.
+# --keep-history   Keep the template's git history, but rename the remote "origin" to
+#                  "upstream", so template updates can still be merged later. Use this
+#                  for a clone of the template repository.
+#                  Default (neither option): the git history and all remotes are deleted
+#                  and a new repository is created.
 # --yes            Do not ask for confirmation (for non-interactive use)
 #
 # Steps:
 #   1. Replaces the "About this project" section in AGENTS.md with one for project NAME.
-#   2. Resets the git repository (or, with --keep-history, renames origin to upstream)
-#      and commits the result.
+#   2. Resets the git repository or keeps it (see the options above) and commits the
+#      result.
 #
 # The working tree must be clean before running this script; only changes in aitasks/
 # are allowed (they are included in the commit).
@@ -42,11 +46,14 @@ die() {
 # --- Parse arguments -------------------------------------------------------
 
 NAME=""
-KEEP_HISTORY=false
+GIT_MODE=reset
 ASSUME_YES=false
 while [ $# -gt 0 ]; do
     case "$1" in
-        --keep-history) KEEP_HISTORY=true ;;
+        --keep-git|--keep-history)
+            [ "$GIT_MODE" = reset ] || die "use only one of --keep-git and --keep-history"
+            GIT_MODE="${1#--}"
+            ;;
         --yes)          ASSUME_YES=true ;;
         -h|--help)      usage; exit 0 ;;
         -*)             usage >&2; die "unknown option '$1'" ;;
@@ -81,7 +88,9 @@ git remote get-url origin >/dev/null 2>&1 && HAS_ORIGIN=true
 
 echo "This will initialize the project '$NAME' in $REPO_DIR:"
 echo "  - replace the 'About this project' section in AGENTS.md"
-if $KEEP_HISTORY; then
+if [ "$GIT_MODE" = keep-git ]; then
+    echo "  - commit the changes (git history and remotes are kept)"
+elif [ "$GIT_MODE" = keep-history ]; then
     if $HAS_ORIGIN; then
         echo "  - rename the git remote 'origin' to 'upstream' ($(git remote get-url origin))"
     fi
@@ -126,7 +135,10 @@ fi
 
 # --- 2. Git ----------------------------------------------------------------
 
-if $KEEP_HISTORY; then
+if [ "$GIT_MODE" = keep-git ]; then
+    git add -A
+    git commit -q -m "Initialize project $NAME from template"
+elif [ "$GIT_MODE" = keep-history ]; then
     if $HAS_ORIGIN; then
         git remote rename origin upstream
         echo "Renamed remote 'origin' to 'upstream'. Add the new project's remote with:"

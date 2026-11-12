@@ -1,4 +1,4 @@
-# AICA Project Template
+# ai-assisted-project-template
 
 A template for software development projects that rely heavily on an **AI coding assistant**
 (AICA) such as Claude Code, Codex, Copilot or Cursor.
@@ -31,7 +31,7 @@ Key documents and tools:
   [`doc/aiTaskDefinitionOfDone.md`](doc/aiTaskDefinitionOfDone.md): criteria a task must meet
   before work starts and before it is done
 - `scripts/tasks.sh`: lists and creates tasks and changes their status
-- `scripts/init-project.sh`: turns a fresh clone of the template into a new project
+- `scripts/init-project.sh`: turns a new copy of the template into a new project
 - `scripts/test.sh`: automated tests for the scripts
 - Skills `add-task`, `improve-task` and `implement-task`: create, review and implement tasks
 
@@ -43,12 +43,23 @@ The required tools and their setup are described in
 
 ## Getting started
 
-1. **Clone the template** into a directory named after your project:
+1. **Create your project from the template**, in one of two ways:
 
-   ```bash
-   git clone <template-repository-url> my-project
-   cd my-project
-   ```
+   - **Recommended: "Use this template" on GitHub.** On the template's GitHub page, click
+     *Use this template* → *Create a new repository*. GitHub creates your own repository with a
+     fresh history. Clone it into a directory named after your project:
+
+     ```bash
+     git clone <your-repository-url> my-project
+     cd my-project
+     ```
+
+   - **Clone the template directly** (e.g. if your project is not hosted on GitHub):
+
+     ```bash
+     git clone https://github.com/<owner>/ai-assisted-project-template.git my-project
+     cd my-project
+     ```
 
 2. **Start your AI coding assistant** in the project directory, e.g. `claude`.
 
@@ -57,7 +68,7 @@ The required tools and their setup are described in
 
    | Task      | What happens                                                                  |
    |-----------|-------------------------------------------------------------------------------|
-   | TASK-0001 | Rename the application and reset the git repository (`scripts/init-project.sh`) |
+   | TASK-0001 | Name the application and set up its git repository (`scripts/init-project.sh`) |
    | TASK-0002 | The AI asks you about domain, problems and features and writes `README.md`    |
    | TASK-0003 | You rate the ISO 25010 quality characteristics → `doc/qualityobjectives.md`   |
    | TASK-0004 | You describe 3rd party systems, technology and legal constraints → `doc/context.md` |
@@ -67,10 +78,16 @@ The required tools and their setup are described in
 
    These tasks are interactive: the AI asks you for the information and you make the decisions.
 
-   > **Caution:** TASK-0001 deletes the template's git history by default (it asks for
-   > confirmation first). Run it only in your new project, never in the template itself.
+   TASK-0001 asks how you created the project. With *Use this template*, your repository is
+   kept as it is. With a direct clone, it either deletes the template's git history and
+   remotes, or keeps the history and renames the remote `origin` to `upstream`, so you can
+   merge template updates later.
 
-4. **Add your remote** after TASK-0001: `git remote add origin <your-repository-url>`.
+   > **Caution:** deleting the git history cannot be undone (TASK-0001 asks for confirmation
+   > first). Run TASK-0001 only in your new project, never in the template itself.
+
+4. **Direct clone only:** add your project's remote after TASK-0001:
+   `git remote add origin <your-repository-url>`.
 
 ## Working with tasks
 
