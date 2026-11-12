@@ -57,7 +57,7 @@ The required tools and their setup are described in
    - **Clone the template directly** (e.g. if your project is not hosted on GitHub):
 
      ```bash
-     git clone https://github.com/<owner>/ai-assisted-project-template.git my-project
+     git clone https://github.com/tnfink/ai-assisted-project-template.git my-project
      cd my-project
      ```
 
