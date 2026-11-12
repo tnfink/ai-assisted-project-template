@@ -36,13 +36,9 @@ Key documents and tools:
 
 ## Prerequisites
 
-- **Git**, **Bash** and **Python 3**; see
-  [`doc/developerInfrastructure.md`](doc/developerInfrastructure.md) for versions and
-  installation.
-- An **AI coding assistant**. The skills use the standard `SKILL.md` format and are registered
-  natively by Claude Code; other assistants find them via `AGENTS.md`.
-- **Windows:** Git must be configured to check out symbolic links (see
-  [`doc/developerInfrastructure.md`](doc/developerInfrastructure.md#git-symbolic-links)).
+The required tools and their setup are described in
+[`doc/developerInfrastructure.md`](doc/developerInfrastructure.md). In addition, you need an
+**AI coding assistant**.
 
 ## Getting started
 

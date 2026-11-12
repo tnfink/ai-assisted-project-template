@@ -24,7 +24,9 @@ reads it before working on further tasks.
    - the **domain** of the application,
    - the **problems** the application solves,
    - the **new features** the application provides.
-2. Save the collected information in a central `README.md` in the repository root.
+2. Save the collected information in a central `README.md` in the repository root. This
+   replaces the existing `README.md`, which describes the project template and how to use it;
+   its content no longer applies to the new project.
 3. Update `AGENTS.md` accordingly.
 
 The information comes from the user; the AI asks for it and does not invent it.
@@ -34,6 +36,8 @@ The information comes from the user; the AI asks for it and does not invent it.
 - [ ] The AI has asked the user about the domain, the problems solved and the new features of
       the application.
 - [ ] `README.md` exists in the repository root and describes the domain of the application.
+- [ ] `README.md` no longer contains the description of the project template (e.g. the
+      sections "Getting started" and "Adapting the template").
 - [ ] `README.md` describes the problems the application solves.
 - [ ] `README.md` describes the new features the application provides.
 - [ ] The content of `README.md` is based on the user's answers.

@@ -12,6 +12,7 @@ is needed, add it to this document first, so the whole team installs it.
 |--------|-----------------|------------------------------------------------------------|---------------------|
 | Bash   | 3.2             | Shell for running the scripts in `scripts/`                | `bash --version`    |
 | Python | 3.10            | Scripting language for automation and tooling              | `python3 --version` |
+| Git    | 2.20            | Version control; used by `scripts/init-project.sh`         | `git --version`     |
 
 ### Bash
 
@@ -28,6 +29,22 @@ macOS ships with Bash 3.2, so scripts must not use features of newer Bash versio
 - Call Python as `python3`; on some systems `python` is missing or points to Python 2.
 - Scripts that need third-party packages must document them (e.g. in a `requirements.txt`)
   instead of assuming they are installed globally.
+
+### Git
+
+- **macOS:** run `git --version`; if Git is missing, macOS offers to install the Xcode Command
+  Line Tools, which include it. Alternatively: `brew install git`.
+- **Linux:** install with the package manager, e.g. `apt install git` on Debian/Ubuntu.
+- **Windows:** install [Git for Windows](https://gitforwindows.org/), which also provides Git Bash.
+  Enable symbolic links (see below).
+
+Configure your name and email address once, otherwise commits (e.g. by
+`scripts/init-project.sh`) fail:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
 
 ## Git: symbolic links
 

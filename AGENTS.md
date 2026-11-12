@@ -24,6 +24,7 @@ The tools installed on every developer's computer are defined in
 
 - **Bash** (3.2 or newer, since macOS ships Bash 3.2), for scripts in `scripts/`
 - **Python 3** (3.10 or newer), called as `python3`
+- **Git** (2.20 or newer)
 
 Rely only on these tools. Do not write scripts or instructions that need other tools
 (e.g. Node.js, `jq`, Docker) unless they have been added to `doc/developerInfrastructure.md` first.
