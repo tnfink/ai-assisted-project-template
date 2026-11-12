@@ -17,7 +17,8 @@
 #
 # Steps:
 #   1. Replaces the "About this project" section in AGENTS.md with one for project NAME.
-#   2. Resets the git repository or keeps it (see the options above) and commits the
+#   2. Removes the template's LICENSE file; the new project chooses its own license.
+#   3. Resets the git repository or keeps it (see the options above) and commits the
 #      result.
 #
 # The working tree must be clean before running this script; only changes in aitasks/
@@ -88,6 +89,9 @@ git remote get-url origin >/dev/null 2>&1 && HAS_ORIGIN=true
 
 echo "This will initialize the project '$NAME' in $REPO_DIR:"
 echo "  - replace the 'About this project' section in AGENTS.md"
+if [ -f LICENSE ]; then
+    echo "  - remove the template's LICENSE file (choose your project's own license)"
+fi
 if [ "$GIT_MODE" = keep-git ]; then
     echo "  - commit the changes (git history and remotes are kept)"
 elif [ "$GIT_MODE" = keep-history ]; then
@@ -133,7 +137,14 @@ if [ -f AGENTS.md ]; then
     echo "Updated AGENTS.md."
 fi
 
-# --- 2. Git ----------------------------------------------------------------
+# --- 2. Remove the template's license --------------------------------------
+
+if [ -f LICENSE ]; then
+    rm LICENSE
+    echo "Removed the template's LICENSE file. Add your project's own license if needed."
+fi
+
+# --- 3. Git ----------------------------------------------------------------
 
 if [ "$GIT_MODE" = keep-git ]; then
     git add -A

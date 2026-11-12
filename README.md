@@ -123,3 +123,11 @@ status changes. Task numbers show the order in which tasks should be done.
 - **Scripts:** add tests for new scripts or commands to `scripts/test.sh` and run it after
   every change.
 - **Rules for the AI:** keep `AGENTS.md` up to date when structure or conventions change.
+
+## License
+
+This template is licensed under the [BSD Zero Clause License (0BSD)](LICENSE): you may use, copy,
+modify and distribute it for any purpose, without having to keep any copyright notice.
+
+Projects created from the template do not inherit this license: TASK-0001 removes the `LICENSE`
+file, so you can choose your project's own license.

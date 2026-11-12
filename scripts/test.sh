@@ -182,6 +182,7 @@ This repository is a **template**.
 Layout text.
 EOF
     echo "task" > "$dir/aitasks/TASK-0001-init.md"
+    echo "Template license" > "$dir/LICENSE"
     (
         cd "$dir" &&
         git init -q &&
@@ -220,6 +221,7 @@ test_init_project() {
     check_contains "AGENTS.md names the project" "$out" "This is the project **MyShop**."
     check_not_contains "AGENTS.md no longer describes the template" "$out" "This repository is a **template**."
     check_contains "AGENTS.md keeps the other sections" "$out" "## Repository layout"
+    check_fails "reset removes the template's LICENSE" test -e "$repo/LICENSE"
 
     # Keep history
     repo="$TMP/init-keep"
@@ -228,6 +230,8 @@ test_init_project() {
     check_equal "keep-history adds one commit" "2" "$(git -C "$repo" rev-list --count HEAD)"
     check_equal "keep-history renames origin to upstream" "upstream" "$(git -C "$repo" remote)"
     check_contains "keep-history updates AGENTS.md" "$(cat "$repo/AGENTS.md")" "**MyShop**"
+    check_fails "keep-history removes the template's LICENSE" test -e "$repo/LICENSE"
+    check_equal "keep-history commits everything" "" "$(git -C "$repo" status --porcelain)"
 
     # Keep git (repository created with "Use this template")
     repo="$TMP/init-keep-git"
@@ -240,6 +244,7 @@ test_init_project() {
         "$(git -C "$repo" remote get-url origin 2>/dev/null)"
     check_equal "keep-git commits everything" "" "$(git -C "$repo" status --porcelain)"
     check_contains "keep-git updates AGENTS.md" "$(cat "$repo/AGENTS.md")" "**MyShop**"
+    check_fails "keep-git removes the template's LICENSE" test -e "$repo/LICENSE"
 }
 
 # ---------------------------------------------------------------------------

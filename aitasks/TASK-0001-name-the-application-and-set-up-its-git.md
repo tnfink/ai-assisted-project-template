@@ -30,7 +30,10 @@ step ensures that all following tasks work on the new project.
 4. Run `scripts/init-project.sh` with the name and the chosen option. Show the user the planned
    changes the script prints and get the user's explicit confirmation before running it with
    `--yes`, because deleting the git history cannot be undone.
-5. If the remote `origin` was deleted or renamed, tell the user to add the remote of the new
+5. The script removes the template's `LICENSE` file (0BSD), because the new project chooses its
+   own license. Tell the user to add the project's own license if needed; choosing it is up to
+   the user and out of scope for this task.
+6. If the remote `origin` was deleted or renamed, tell the user to add the remote of the new
    project with `git remote add origin <URL>`.
 
 Renaming the project directory itself is out of scope; the user chooses it when cloning.
@@ -41,6 +44,7 @@ Renaming the project directory itself is out of scope; the user chooses it when 
       ("Use this template"), reset or keep history (direct clone).
 - [ ] The section "About this project" in `AGENTS.md` names the new project and no longer
       describes the repository as a template.
+- [ ] The template's `LICENSE` file has been removed.
 - [ ] Reset: `git log` shows a single initial commit and `git remote` lists no remotes.
 - [ ] Kept history: the remote `origin` has been renamed to `upstream` and the changes are
       committed.
