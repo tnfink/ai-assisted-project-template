@@ -17,7 +17,8 @@
 #   3. Resets the git repository (or, with --keep-history, renames origin to upstream)
 #      and commits the result.
 #
-# The working tree must be clean (no uncommitted changes) before running this script.
+# The working tree must be clean before running this script; only changes in aitasks/
+# are allowed (they are included in the commit).
 
 # Note for developers: the comment block above is printed by --help.
 # Keep this script compatible with Bash 3.2 (see doc/developerInfrastructure.md).
@@ -68,8 +69,10 @@ cd "$REPO_DIR"
 
 [ -d .git ] || die "$REPO_DIR is not the root of a git repository"
 command -v git >/dev/null || die "git is not installed"
-if [ -n "$(git status --porcelain)" ]; then
-    die "the working tree has uncommitted changes; commit or stash them first"
+# Changes in aitasks/ are allowed: the task running this script (TASK-0001) has
+# already updated its status there. They are included in the commit below.
+if [ -n "$(git status --porcelain -- . ':(exclude)aitasks')" ]; then
+    die "the working tree has uncommitted changes outside aitasks/; commit or stash them first"
 fi
 
 OLD_IML=""

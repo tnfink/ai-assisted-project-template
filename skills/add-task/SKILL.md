@@ -53,8 +53,12 @@ Edit the generated file:
   **Motivation**, **Task description** and **Acceptance criteria** with the content from step 1.
   Remove the placeholder comments you replaced, including the example acceptance criteria.
 - Write acceptance criteria as a checklist (`- [ ] ...`), one verifiable condition per line.
-  Prefer criteria that can be checked by a command, a test or an inspection, and include
-  "Documentation in `doc/` is updated" if the task changes behavior or structure.
+  Prefer criteria that can be checked by a command, a test or an inspection. Do not repeat
+  criteria that apply to every task; they are defined in `doc/aiTaskDefinitionOfDone.md`
+  (e.g. that the documentation is updated) and checked by `implement-task`.
+- The new task must fulfill `doc/aiTaskDefinitionOfReady.md`.
+- If the new task has to be done before existing tasks, renumber the tasks so the numbers still
+  show the order, as described in `AGENTS.md`.
 - **Do not change** the rows **ID**, **Short description** and **Status** in the header table,
   the title line, or the **History** section. `scripts/tasks.sh` reads the header rows and has
   already recorded the creation in the history.

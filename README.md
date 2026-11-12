@@ -62,6 +62,7 @@ The required tools and their setup are described in
    | TASK-0004 | You describe 3rd party systems, technology and legal constraints → `doc/context.md` |
    | TASK-0005 | The AI proposes an architecture, you decide → `doc/architecture.md`          |
    | TASK-0006 | The AI creates the core application with build, tests and static checks      |
+   | TASK-0007 | The AI proposes QA measures, you decide → `doc/qameasures.md` and new tasks    |
 
    These tasks are interactive: the AI asks you for the information and you make the decisions.
 

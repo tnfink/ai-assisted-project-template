@@ -89,6 +89,9 @@ information quickly and to reuse it selectively.
 - `doc/architecture.md`: the software architecture and its rationale
 - `doc/qualityobjectives.md`: the quality objectives based on ISO/IEC 25010
 - `doc/context.md`: the context and constraints of the application
+- `doc/qameasures.md`: the automated QA measures derived from the quality objectives
+- `doc/aiTaskDefinitionOfReady.md` / `doc/aiTaskDefinitionOfDone.md`: the criteria a task must
+  meet before work starts and before it is done
 
 The domain, problems and features of the application are described in the central `README.md`.
 
@@ -167,7 +170,8 @@ implementation. The developer first breaks this requirement down into one or mor
 subprocess:
 
 1. The developer selects an AI task for implementation. Tasks whose dependencies are not yet
-   `done` cannot be selected; `scripts/tasks.sh list open` shows the candidates.
+   `done` cannot be selected; `scripts/tasks.sh list -deps open` shows the open tasks with their
+   dependencies.
 2. The developer reviews the AI task with the skill `improve-task` and improves it if necessary,
    so that it matches the current state of the project and can be implemented unambiguously.
 3. The AICA implements the AI task with the skill `implement-task`. It sets the status to
