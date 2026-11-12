@@ -3,7 +3,9 @@
 # tasks.sh - Helper for handling AI tasks stored in aitasks/.
 #
 # Usage:
-#   scripts/tasks.sh list [STATE]             List tasks, optionally only those with the given STATE
+#   scripts/tasks.sh list [-deps] [STATE]     List tasks (ID, status, short description),
+#                                             optionally only those with the given STATE;
+#                                             -deps also shows the dependencies of each task
 #   scripts/tasks.sh new SHORT_DESCRIPTION    Create a new task with the next free ID
 #                                             (TASK-0001, TASK-0002, ...) and status open
 #   scripts/tasks.sh help                     Show this help
@@ -75,26 +77,71 @@ task_files() {
     done
 }
 
+# cmd_list [-deps] [STATE]: options and STATE may be given in any order.
 cmd_list() {
-    local filter="${1:-}"
+    local filter="" show_deps=false arg
+    for arg in "$@"; do
+        case "$arg" in
+            -deps|--deps) show_deps=true ;;
+            -*) die "unknown option '$arg' for 'list'" ;;
+            *)
+                [ -z "$filter" ] || die "only one STATE allowed for 'list'"
+                filter="$arg"
+                ;;
+        esac
+    done
     if [ -n "$filter" ] && ! is_valid_state "$filter"; then
         die "invalid state '$filter' (valid: $VALID_STATES)"
     fi
 
-    local file id status description
-    printf '%-14s %-9s %s\n' "ID" "STATUS" "SHORT DESCRIPTION"
-    while IFS= read -r file; do
-        [ -n "$file" ] || continue
-        status="$(get_field "$file" "Status")"
-        if [ -n "$filter" ] && [ "$status" != "$filter" ]; then
-            continue
+    # Rows are collected tab-separated first, so the column widths can be
+    # computed from the content (the dependency lists vary in length).
+    local file id status dependencies description
+    {
+        if $show_deps; then
+            printf 'ID\tSTATUS\tDEPENDS ON\tSHORT DESCRIPTION\n'
+        else
+            printf 'ID\tSTATUS\tSHORT DESCRIPTION\n'
         fi
-        id="$(get_field "$file" "ID")"
-        description="$(get_field "$file" "Short description")"
-        printf '%-14s %-9s %s\n' "${id:-?}" "${status:-?}" "$description"
-    done <<EOF
+        while IFS= read -r file; do
+            [ -n "$file" ] || continue
+            status="$(get_field "$file" "Status")"
+            if [ -n "$filter" ] && [ "$status" != "$filter" ]; then
+                continue
+            fi
+            id="$(get_field "$file" "ID")"
+            description="$(get_field "$file" "Short description")"
+            if $show_deps; then
+                dependencies="$(get_field "$file" "Dependencies")"
+                case "$dependencies" in
+                    ""|none|None|NONE) dependencies="-" ;;
+                esac
+                printf '%s\t%s\t%s\t%s\n' "${id:-?}" "${status:-?}" "$dependencies" "$description"
+            else
+                printf '%s\t%s\t%s\n' "${id:-?}" "${status:-?}" "$description"
+            fi
+        done <<EOF
 $(task_files)
 EOF
+    } | format_columns
+}
+
+# format_columns: reads tab-separated rows and prints them as aligned columns
+# (the last column is not padded).
+format_columns() {
+    awk -F'\t' '
+        {
+            rows[NR] = $0
+            for (i = 1; i < NF; i++) if (length($i) > width[i]) width[i] = length($i)
+        }
+        END {
+            for (r = 1; r <= NR; r++) {
+                n = split(rows[r], cols, "\t")
+                line = ""
+                for (i = 1; i < n; i++) line = line sprintf("%-" width[i] "s   ", cols[i])
+                print line cols[n]
+            }
+        }'
 }
 
 # next_id: prints the next free task ID (highest existing number + 1), considering
@@ -123,8 +170,8 @@ slugify() {
 }
 
 # print_template: prints the template for a new task. The placeholders {{ID}},
-# {{DESCRIPTION}} and {{TIMESTAMP}} are replaced by cmd_new. The rows "ID", "Status"
-# and "Short description" are read by get_field, so keep their format intact.
+# {{DESCRIPTION}} and {{TIMESTAMP}} are replaced by cmd_new. The rows "ID", "Status",
+# "Dependencies" and "Short description" are read by get_field, so keep their format intact.
 print_template() {
     cat <<'TEMPLATE'
 # {{ID}}: {{DESCRIPTION}}
@@ -223,7 +270,6 @@ main() {
     [ $# -gt 0 ] && shift
     case "$command" in
         list)
-            [ $# -le 1 ] || die "too many arguments for 'list'"
             cmd_list "$@"
             ;;
         new)

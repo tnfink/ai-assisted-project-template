@@ -68,7 +68,8 @@ Rely only on these tools. Do not write scripts or instructions that need other t
   lists all open tasks and `scripts/tasks.sh new "Short description"` creates a new task with the
   next free ID from the template (`scripts/tasks.sh help` shows all commands). Always create new
   tasks with this script, then fill in the remaining sections of the created file. The script reads the
-  `ID`, `Status` and `Short description` rows of the header table, so keep their format intact.
+  `ID`, `Status`, `Dependencies` and `Short description` rows of the header table, so keep their
+  format intact (dependencies as a comma-separated list of task IDs, or `none`).
 - Keep this file up to date when the structure or conventions of the project change.
 
 ## Working approach

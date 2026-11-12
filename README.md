@@ -1,0 +1,106 @@
+# AICA Project Template
+
+A template for software development projects that rely heavily on an **AI coding assistant**
+(AICA) such as Claude Code, Codex, Copilot or Cursor.
+
+The template provides a ready-to-use structure and process in which humans and AI agents work
+together: work is planned as plain-text tasks, the AI implements them with defined skills, and
+documentation tells the AI where everything is and which rules apply.
+
+> **Note:** This README describes the template. In a project created from it, this file is
+> replaced by the project's own README in task `TASK-0002`.
+
+## What's inside
+
+| Path                          | Content                                                                 |
+|-------------------------------|-------------------------------------------------------------------------|
+| `AGENTS.md`                   | Instructions for AI coding assistants: layout, conventions, rules       |
+| `CLAUDE.md`                   | Imports `AGENTS.md`, so Claude Code loads the same instructions         |
+| `aitasks/`                    | Tasks for the AI, one Markdown file per task                            |
+| `doc/`                        | All project documentation                                               |
+| `scripts/`                    | All scripts                                                             |
+| `skills/`                     | Skills for the AI (`.claude/skills` links here for Claude Code)         |
+
+Key documents and tools:
+
+- [`doc/swDevelopmentProcess.md`](doc/swDevelopmentProcess.md): the AI-based development process,
+  including a flowchart
+- [`doc/developerInfrastructure.md`](doc/developerInfrastructure.md): the tools every developer
+  needs, and which the AI may rely on
+- [`doc/aiTaskDefinitionOfReady.md`](doc/aiTaskDefinitionOfReady.md) /
+  [`doc/aiTaskDefinitionOfDone.md`](doc/aiTaskDefinitionOfDone.md): criteria a task must meet
+  before work starts and before it is done
+- `scripts/tasks.sh`: lists and creates tasks
+- `scripts/init-project.sh`: turns a fresh clone of the template into a new project
+- Skills `add-task`, `improve-task` and `implement-task`: create, review and implement tasks
+
+## Prerequisites
+
+- **Git**, **Bash** and **Python 3**; see
+  [`doc/developerInfrastructure.md`](doc/developerInfrastructure.md) for versions and
+  installation.
+- An **AI coding assistant**. The skills use the standard `SKILL.md` format and are registered
+  natively by Claude Code; other assistants find them via `AGENTS.md`.
+- **Windows:** Git must be configured to check out symbolic links (see
+  [`doc/developerInfrastructure.md`](doc/developerInfrastructure.md#git-symbolic-links)).
+
+## Getting started
+
+1. **Clone the template** into a directory named after your project:
+
+   ```bash
+   git clone <template-repository-url> my-project
+   cd my-project
+   ```
+
+2. **Start your AI coding assistant** in the project directory, e.g. `claude`.
+
+3. **Work through the prepared tasks in order.** Ask the AI to implement them one by one, e.g.
+   with `/implement-task TASK-0001` in Claude Code, or "implement TASK-0001" in any assistant:
+
+   | Task      | What happens                                                                  |
+   |-----------|-------------------------------------------------------------------------------|
+   | TASK-0001 | Rename the application and reset the git repository (`scripts/init-project.sh`) |
+   | TASK-0002 | The AI asks you about domain, problems and features and writes `README.md`    |
+   | TASK-0003 | You rate the ISO 25010 quality characteristics → `doc/qualityobjectives.md`   |
+   | TASK-0004 | You describe 3rd party systems, technology and legal constraints → `doc/context.md` |
+   | TASK-0005 | The AI proposes an architecture, you decide → `doc/architecture.md`          |
+   | TASK-0006 | The AI creates the core application with build, tests and static checks      |
+
+   These tasks are interactive: the AI asks you for the information and you make the decisions.
+
+   > **Caution:** TASK-0001 deletes the template's git history by default (it asks for
+   > confirmation first). Run it only in your new project, never in the template itself.
+
+4. **Add your remote** after TASK-0001: `git remote add origin <your-repository-url>`.
+
+## Working with tasks
+
+After the setup, new work follows the process in
+[`doc/swDevelopmentProcess.md`](doc/swDevelopmentProcess.md):
+
+1. **Create tasks** from a requirement: `/add-task <what needs to be done>`.
+2. **Review a task** before implementing it: `/improve-task TASK-<NNNN>`.
+3. **Implement it**: `/implement-task TASK-<NNNN>`. The AI checks the Definition of Ready, works
+   on the task, verifies the acceptance criteria and the Definition of Done, and marks it `done`.
+4. **Review the results** and repeat.
+
+Show the current tasks and their dependencies:
+
+```bash
+scripts/tasks.sh list          # all tasks
+scripts/tasks.sh list open     # only open tasks
+scripts/tasks.sh list -deps    # all tasks with their dependencies
+scripts/tasks.sh help          # all commands
+```
+
+Each task has a status (`open`, `in-work`, `waiting`, `done`, `aborted`) and a history of all
+status changes. Task numbers show the order in which tasks should be done.
+
+## Adapting the template
+
+- **Definition of Ready / Done:** add your project's criteria to
+  `doc/aiTaskDefinitionOfReady.md` and `doc/aiTaskDefinitionOfDone.md`.
+- **Skills:** add new skills as `skills/<name>/SKILL.md`.
+- **Tools:** add new tools to `doc/developerInfrastructure.md` before the AI uses them.
+- **Rules for the AI:** keep `AGENTS.md` up to date when structure or conventions change.
