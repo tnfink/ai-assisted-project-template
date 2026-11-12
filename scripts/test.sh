@@ -133,7 +133,7 @@ test_tasks() {
     check_contains "list -deps shows dependencies" "$out" "TASK-0001, TASK-0009"
     check_fails "list rejects an invalid state" "$TASKS" list finished
     check_fails "list rejects an unknown option" "$TASKS" list -x
-    check_fails "list rejects two states" "$TASKS" list open done
+    check_fails "list rejects two states" "$TASKS" list open "done"
 
     # status
     file="$AITASKS_DIR/TASK-0001-define-quality-objectives-based-on-iso.md"
@@ -148,12 +148,12 @@ test_tasks() {
     check_fails "status rejects '|' in the comment" "$TASKS" status 1 waiting "a | b"
     check_fails "status rejects the current status" "$TASKS" status 1 in-work
     check_fails "status rejects an invalid state" "$TASKS" status 1 finished
-    check_fails "status rejects an unknown task" "$TASKS" status TASK-0099 done
-    "$TASKS" status 1 done >/dev/null
+    check_fails "status rejects an unknown task" "$TASKS" status TASK-0099 "done"
+    "$TASKS" status 1 "done" >/dev/null
     check_equal "status accepts a short ID" "done" "$(field "$file" Status)"
     check_equal "the history has one row per status change" "3" \
         "$(grep -c '^| 20[0-9][0-9]-' "$file")"
-    out="$("$TASKS" list done)"
+    out="$("$TASKS" list "done")"
     check_contains "list filters by status" "$out" "TASK-0001"
     check_not_contains "list filter excludes other tasks" "$out" "TASK-0010"
 
