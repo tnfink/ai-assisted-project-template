@@ -32,21 +32,30 @@ product quality model of ISO/IEC 25010 (2023 edition):
 
 For each characteristic:
 
-- Ask the user to give a rating between 1 and 5, where 5 means maximal important.
-- Ask the user for some explanation of the rating.
+- Explain the characteristic to the user in one sentence and what it could mean for this
+  application (based on `README.md`), e.g. "Security: protection of customer data against
+  unauthorized access". The explanation only helps the user; it does not suggest a rating.
+- Ask the user to give a rating between 1 and 5, where 1 means least important and 5 means
+  most important.
+- Ask the user for a short explanation of the rating.
 
-Save the results in `doc/qualityobjectives.md`.
+Save the results in `doc/qualityobjectives.md`: name the standard (ISO/IEC 25010:2023) and the
+rating scale, and list the 9 characteristics in a table with the columns *Characteristic*,
+*Rating* and *Explanation*.
 
 The ratings and explanations come from the user; the AI asks for them and does not invent them.
 
 ## Acceptance criteria
 
-- [ ] The AI has asked the user for a rating and an explanation for each of the 9 quality
-      characteristics.
+- [ ] The AI has explained each of the 9 quality characteristics to the user in one sentence,
+      related to this application, and has asked the user for a rating and an explanation.
 - [ ] `doc/qualityobjectives.md` exists.
 - [ ] `doc/qualityobjectives.md` lists all 9 quality characteristics of ISO/IEC 25010.
-- [ ] Each characteristic has a rating between 1 and 5 (5 = maximal important), as given by
-      the user.
+- [ ] `doc/qualityobjectives.md` names the standard (ISO/IEC 25010:2023) and the rating scale,
+      and lists the characteristics in a table with the columns *Characteristic*, *Rating* and
+      *Explanation*.
+- [ ] Each characteristic has a rating between 1 and 5 (1 = least important, 5 = most
+      important), as given by the user.
 - [ ] Each characteristic has an explanation of its rating, based on the user's answer.
 
 ## History

@@ -27,6 +27,10 @@ Do not change anything in the project before all of these checks pass.
    are missing.
 3. **Definition of Ready:** read `doc/aiTaskDefinitionOfReady.md` and check the task against
    every criterion in it.
+4. **Tools:** check that the tools the task needs (e.g. a runtime in the version given in
+   `doc/developerInfrastructure.md` or `doc/architecture.md`) are installed, e.g. with the
+   check commands in `doc/developerInfrastructure.md`. If a tool is missing, tell the user
+   which tool to install and wait; do not work around it with another version or tool.
 
 If a check fails, do not start the implementation. Report which criteria are not fulfilled and
 why. Offer to complete the task description together with the user; change the task file only
@@ -49,6 +53,9 @@ Always change the status with `scripts/tasks.sh status`, never by editing the ta
 - Do what the **Task description** asks for, no more. Do not expand the scope.
 - If the task requires decisions or information from the user (e.g. asking for ratings or
   choosing an architecture), ask the user; never invent the user's answers.
+- Ask for free-text information (e.g. names, descriptions, ratings with explanations) as plain
+  text in the conversation. Use a multiple-choice question dialog only when the user chooses
+  between fixed alternatives.
 - If you discover additional work that is needed but outside this task, do not do it. Propose
   creating a new task with the skill `add-task` instead.
 - If you are blocked (e.g. waiting for the user or an external party), set the status with

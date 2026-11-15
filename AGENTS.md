@@ -29,6 +29,10 @@ The tools installed on every developer's computer are defined in
 Rely only on these tools. Do not write scripts or instructions that need other tools
 (e.g. Node.js, `jq`, Docker) unless they have been added to `doc/developerInfrastructure.md` first.
 
+Use stable releases of all tools, libraries and frameworks. Using a pre-release version (e.g. an
+alpha, beta or release candidate) needs the user's explicit decision, recorded in
+`doc/architecture.md`.
+
 ## Conventions
 
 - **Documentation** goes into `doc/`. Do not scatter documentation files across the repository

@@ -87,6 +87,7 @@ information quickly and to reuse it selectively.
 
 - `doc/developerInfrastructure.md`: the tools installed on every developer's computer
 - `doc/architecture.md`: the software architecture and its rationale
+- `doc/buildAndTest.md`: the commands to build, test, check and run the application
 - `doc/qualityobjectives.md`: the quality objectives based on ISO/IEC 25010
 - `doc/context.md`: the context and constraints of the application
 - `doc/qameasures.md`: the automated QA measures derived from the quality objectives

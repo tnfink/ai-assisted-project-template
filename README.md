@@ -70,10 +70,10 @@ The required tools and their setup are described in
    |-----------|-------------------------------------------------------------------------------|
    | TASK-0001 | Name the application and set up its git repository (`scripts/init-project.sh`) |
    | TASK-0002 | The AI asks you about domain, problems and features and writes `README.md`    |
-   | TASK-0003 | You rate the ISO 25010 quality characteristics → `doc/qualityobjectives.md`   |
-   | TASK-0004 | You describe 3rd party systems, technology and legal constraints → `doc/context.md` |
-   | TASK-0005 | The AI proposes an architecture, you decide → `doc/architecture.md`          |
-   | TASK-0006 | The AI creates the core application with build, tests and static checks      |
+   | TASK-0003 | The AI explains the ISO 25010 quality characteristics, you rate them → `doc/qualityobjectives.md` |
+   | TASK-0004 | You describe 3rd party systems, technology, legal and hosting constraints → `doc/context.md` |
+   | TASK-0005 | The AI proposes structure and tech stack topic by topic, you decide → `doc/architecture.md` |
+   | TASK-0006 | The AI creates the core application with build, tests and static checks → `doc/buildAndTest.md` |
    | TASK-0007 | The AI proposes QA measures, you decide → `doc/qameasures.md` and new tasks    |
 
    These tasks are interactive: the AI asks you for the information and you make the decisions.
