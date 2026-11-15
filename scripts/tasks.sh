@@ -288,7 +288,7 @@ print_template() {
 
 - [ ] <!-- e.g. Feature X behaves as described when ... -->
 - [ ] <!-- e.g. Automated tests for X exist and pass (scripts/test.sh) -->
-- [ ] <!-- e.g. Documentation in doc/ is updated -->
+- [ ] <!-- e.g. Command Y prints Z for input W -->
 
 ## History
 

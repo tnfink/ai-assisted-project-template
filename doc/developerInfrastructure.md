@@ -74,3 +74,12 @@ in `skills/` available to Claude Code. Git must check them out as real symbolic 
 1. Add a row to the table above with minimum version, purpose and a check command.
 2. Add installation notes for the supported operating systems.
 3. Tell the team, so everyone installs it.
+
+Tools that do not have to be installed by everyone go into their own sections below the
+required tools, created when the first such tool is added:
+
+- **Tools loaded by the build:** tools the build downloads itself (e.g. a build tool wrapper
+  and libraries), with a note where their versions are defined.
+- **Optional tools:** tools only needed for some activities (e.g. a container runtime to start
+  the application locally), in a table with purpose and check command. Scripts and the build
+  must not require them.

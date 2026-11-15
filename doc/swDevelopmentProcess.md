@@ -175,9 +175,10 @@ subprocess:
    dependencies.
 2. The developer reviews the AI task with the skill `improve-task` and improves it if necessary,
    so that it matches the current state of the project and can be implemented unambiguously.
-3. The AICA implements the AI task with the skill `implement-task`. It sets the status to
-   `in-work` when it starts and to `done` when all acceptance criteria are met, recording each
-   change in the task's history.
+3. The AICA implements the AI task with the skill `implement-task`. It checks the Definition
+   of Ready and sets the status to `in-work` when it starts, and sets it to `done` when all
+   acceptance criteria and the Definition of Done are met, recording each change in the
+   task's history.
 4. The developer reviews the results. If they do not meet the requirement, the developer works
    directly with the AICA to complete the task and then reviews the results again. This loop
    repeats until the requirement is met.
