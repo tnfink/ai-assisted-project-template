@@ -72,6 +72,7 @@ a successful build, a passing test suite and met static quality metrics.
 | `implement-task` | Implements an AI task. Before starting, it checks the task against the Definition of Ready (`doc/aiTaskDefinitionOfReady.md`). After a successful implementation, it checks the acceptance criteria and the Definition of Done (`doc/aiTaskDefinitionOfDone.md`) and marks the task as `done`, documenting the completion of the work step. | available (`skills/implement-task/`) |
 | `review-documentation` | Reviews all documents in `doc/` for consistency with each other and with the rest of the project, and for correctness against the actual state of the project. It fixes clear errors and asks the user about everything else. Used in the regular maintenance. | available (`skills/review-documentation/`) |
 | `review-ai-specs` | Reviews the AI docs (`AGENTS.md`, `CLAUDE.md`, the skills and the other documents that control the AI) for improvements in speed, efficiency and correctness. It fixes clear errors and proposes all changes of the AI's behavior to the user. Used in the regular maintenance. | available (`skills/review-ai-specs/`) |
+| `perform-qa-measurements` | Executes all QA measurements of the project and reports the results. In the template, it checks the template itself (script tests, task files, skills, links); TASK-0007 adapts it to the QA measures decided in `doc/qameasures.md`. Used in the regular maintenance. | available (`skills/perform-qa-measurements/`) |
 
 Skills are stored in `skills/`; `.claude/skills` links to it, so Claude Code registers them
 natively.
@@ -150,7 +151,7 @@ flowchart TD
         fork{"+"}
         reviewDocs["Review the technical<br/>project documentation<br/>(review-documentation)"]
         optimizeAiDocs["Optimize the AI docs<br/>(review-ai-specs)"]
-        codeQa["Perform QA measures<br/>on the code"]
+        codeQa["Perform QA measures<br/>on the code<br/>(perform-qa-measurements)"]
         join{"+"}
         maintDone(("End"))
     end
@@ -200,6 +201,7 @@ parallel:
   the skill `review-documentation`.
 - Optimize the AI docs (the skills in `skills/`, `AGENTS.md` and the other documents that
   control the AI) for speed, efficiency and correctness, with the skill `review-ai-specs`.
-- Perform quality assurance measures on the code.
+- Perform the quality assurance measures on the code, with the skill
+  `perform-qa-measurements`.
 
 This keeps the foundations the AICA works with up to date and reliable.

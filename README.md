@@ -84,7 +84,7 @@ decide, and the AI writes the results down.
 | TASK-0004 | The AI asks, with examples, about 3rd party systems, prescribed technologies, legal requirements and hosting. | `doc/context.md` |
 | TASK-0005 | Topic by topic (structure, language and runtime, frameworks, UI, data storage, integration, deployment, build and test tools), the AI proposes options with pros and cons; you decide. | `doc/architecture.md` |
 | TASK-0006 | The AI creates the core application with build, tests and static quality checks, using the decided architecture. | Code, `doc/buildAndTest.md` |
-| TASK-0007 | The AI proposes automated QA measures based on your quality objectives; you decide, and the AI creates tasks for them. | `doc/qameasures.md`, new tasks |
+| TASK-0007 | The AI proposes automated QA measures based on your quality objectives; you decide, and the AI creates tasks for them and adds them to the skill `perform-qa-measurements`. | `doc/qameasures.md`, new tasks |
 
 **Git in TASK-0001:** with *Use this template*, your repository is kept as it is. With a
 direct clone, TASK-0001 either deletes the template's git history and remotes, or keeps the
@@ -144,6 +144,8 @@ Key documents and tools:
 - Skill `review-documentation`: checks all documents in `doc/` for consistency and correctness
 - Skill `review-ai-specs`: checks `AGENTS.md`, the skills and the other AI docs for speed,
   efficiency and correctness
+- Skill `perform-qa-measurements`: executes all QA measurements; TASK-0007 adapts it to your
+  project's QA measures
 
 ## Adapting the template
 

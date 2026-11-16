@@ -33,6 +33,12 @@ analysis:
    - the rationale for the decision, as given by the user.
 5. As result of this task, additional tasks are created, using the skill `add-task`, that
    implement the decided QA measures.
+6. Adapt the skill `perform-qa-measurements` (`skills/perform-qa-measurements/SKILL.md`) to
+   all decided QA measures: add a row for every decided measure to its table of measurements,
+   with the status `planned (TASK-<NNNN>)` naming the task that implements it, and keep the
+   template measurements that still apply (remove the others). Each new task from step 5
+   includes the acceptance criterion that its measure's row in the skill has a command and
+   the status `active`, and that the skill runs it successfully.
 
 Implementing the QA measures is out of scope; it is done in the newly created tasks.
 
@@ -48,6 +54,12 @@ Implementing the QA measures is out of scope; it is done in the newly created ta
 - [ ] `doc/qameasures.md` states the rationale for the decision, as given by the user.
 - [ ] For the decided QA measures, additional tasks have been created with the skill `add-task`;
       `scripts/tasks.sh list open` shows them.
+- [ ] The table of measurements in `skills/perform-qa-measurements/SKILL.md` has a row for
+      every decided QA measure, with the status `planned (TASK-<NNNN>)` naming an existing
+      task, and lists only template measurements that still apply.
+- [ ] Each new task contains the acceptance criterion that its measure's row in the skill
+      `perform-qa-measurements` has a command and the status `active`, and that the skill
+      runs it successfully.
 - [ ] Each new task states which decided QA measure it implements, refers to
       `doc/qameasures.md`, and depends on this task.
 

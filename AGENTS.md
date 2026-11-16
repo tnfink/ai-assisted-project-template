@@ -39,6 +39,7 @@ check whether a skill applies and follow it. Assistants without native skill sup
 | `implement-task`       | implement a task (contains the rules for Definition of Ready, dependencies and Definition of Done) |
 | `review-documentation` | check all documents in `doc/` for consistency and correctness             |
 | `review-ai-specs`      | check this file, the skills and the other AI docs for speed, efficiency and correctness |
+| `perform-qa-measurements` | execute all QA measurements (tests, static and consistency checks) and report the results |
 
 `.claude/skills` is a symbolic link to `skills/`, so Claude Code registers the skills natively;
 do not put skills into `.claude/skills` directly (see `doc/developerInfrastructure.md` for
