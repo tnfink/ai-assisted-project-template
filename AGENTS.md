@@ -55,6 +55,9 @@ alpha, beta or release candidate) needs the user's explicit decision, recorded i
   implementing it, and `implement-task` to implement it.
 - **Documentation review:** use the skill `review-documentation` to check all documents in
   `doc/` for consistency and correctness, e.g. as part of the regular maintenance.
+- **AI specification review:** use the skill `review-ai-specs` to check this file, the skills
+  and the other documents that control the AI for improvements in speed, efficiency and
+  correctness, e.g. as part of the regular maintenance.
 - **Task status** is kept in the task file and is one of:
   - `open`: not started yet
   - `in-work`: currently being worked on

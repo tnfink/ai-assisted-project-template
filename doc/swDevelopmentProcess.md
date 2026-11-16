@@ -18,7 +18,7 @@ this project.
 | AI task (AI issue)    | A task for the AICA, stored as a file in `aitasks/`                                      |
 | HP issue              | A task for human persons (HP), e.g. a user story or requirement in a tracker like Jira   |
 | PO                    | Product owner, who selects the requirements to implement                                 |
-| AI docs               | Documentation for the AICA: the skills in `skills/` and `AGENTS.md` / `CLAUDE.md`        |
+| AI docs               | Documentation that controls the AICA: `AGENTS.md` / `CLAUDE.md`, the skills in `skills/` and the rules they refer to, e.g. the Definitions of Ready and Done |
 
 ## Prerequisites
 
@@ -71,6 +71,7 @@ a successful build, a passing test suite and met static quality metrics.
 | `improve-task`   | Improves an existing AI task based on the current state of the project and the AICA's knowledge, so that it is functionally complete, technically feasible and unambiguous. It checks whether the task is still valid, updates it if not, and looks for other errors and possible improvements. | available (`skills/improve-task/`) |
 | `implement-task` | Implements an AI task. Before starting, it checks the task against the Definition of Ready (`doc/aiTaskDefinitionOfReady.md`). After a successful implementation, it checks the acceptance criteria and the Definition of Done (`doc/aiTaskDefinitionOfDone.md`) and marks the task as `done`, documenting the completion of the work step. | available (`skills/implement-task/`) |
 | `review-documentation` | Reviews all documents in `doc/` for consistency with each other and with the rest of the project, and for correctness against the actual state of the project. It fixes clear errors and asks the user about everything else. Used in the regular maintenance. | available (`skills/review-documentation/`) |
+| `review-ai-specs` | Reviews the AI docs (`AGENTS.md`, `CLAUDE.md`, the skills and the other documents that control the AI) for improvements in speed, efficiency and correctness. It fixes clear errors and proposes all changes of the AI's behavior to the user. Used in the regular maintenance. | available (`skills/review-ai-specs/`) |
 
 Skills are stored in `skills/`; `.claude/skills` links to it, so Claude Code registers them
 natively.
@@ -148,7 +149,7 @@ flowchart TD
         timer(["Periodically"])
         fork{"+"}
         reviewDocs["Review the technical<br/>project documentation<br/>(review-documentation)"]
-        optimizeAiDocs["Optimize the AI docs<br/>(skills and AGENTS.md)"]
+        optimizeAiDocs["Optimize the AI docs<br/>(review-ai-specs)"]
         codeQa["Perform QA measures<br/>on the code"]
         join{"+"}
         maintDone(("End"))
@@ -197,7 +198,8 @@ parallel:
 
 - Review the technical project documentation in `doc/` for consistency and correctness, with
   the skill `review-documentation`.
-- Optimize the AI docs: the skills in `skills/` and `AGENTS.md`.
+- Optimize the AI docs (the skills in `skills/`, `AGENTS.md` and the other documents that
+  control the AI) for speed, efficiency and correctness, with the skill `review-ai-specs`.
 - Perform quality assurance measures on the code.
 
 This keeps the foundations the AICA works with up to date and reliable.

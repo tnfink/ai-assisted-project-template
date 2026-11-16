@@ -142,6 +142,8 @@ Key documents and tools:
 - `scripts/test.sh`: automated tests for the scripts
 - Skills `add-task`, `improve-task` and `implement-task`: create, review and implement tasks
 - Skill `review-documentation`: checks all documents in `doc/` for consistency and correctness
+- Skill `review-ai-specs`: checks `AGENTS.md`, the skills and the other AI docs for speed,
+  efficiency and correctness
 
 ## Adapting the template
 
