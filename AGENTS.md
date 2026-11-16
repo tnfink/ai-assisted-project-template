@@ -53,6 +53,8 @@ alpha, beta or release candidate) needs the user's explicit decision, recorded i
   in [`doc/aiTaskDefinitionOfDone.md`](doc/aiTaskDefinitionOfDone.md) before reporting the task as
   complete. Use the skill `add-task` to create a task, `improve-task` to review it before
   implementing it, and `implement-task` to implement it.
+- **Documentation review:** use the skill `review-documentation` to check all documents in
+  `doc/` for consistency and correctness, e.g. as part of the regular maintenance.
 - **Task status** is kept in the task file and is one of:
   - `open`: not started yet
   - `in-work`: currently being worked on

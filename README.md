@@ -141,6 +141,7 @@ Key documents and tools:
 - `scripts/init-project.sh`: turns a new copy of the template into a new project
 - `scripts/test.sh`: automated tests for the scripts
 - Skills `add-task`, `improve-task` and `implement-task`: create, review and implement tasks
+- Skill `review-documentation`: checks all documents in `doc/` for consistency and correctness
 
 ## Adapting the template
 

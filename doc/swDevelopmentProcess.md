@@ -70,6 +70,7 @@ a successful build, a passing test suite and met static quality metrics.
 | `add-task`       | Creates a new AI task from the information and wishes of a human. The AICA can add project-specific guidelines to the task automatically. | available (`skills/add-task/`) |
 | `improve-task`   | Improves an existing AI task based on the current state of the project and the AICA's knowledge, so that it is functionally complete, technically feasible and unambiguous. It checks whether the task is still valid, updates it if not, and looks for other errors and possible improvements. | available (`skills/improve-task/`) |
 | `implement-task` | Implements an AI task. Before starting, it checks the task against the Definition of Ready (`doc/aiTaskDefinitionOfReady.md`). After a successful implementation, it checks the acceptance criteria and the Definition of Done (`doc/aiTaskDefinitionOfDone.md`) and marks the task as `done`, documenting the completion of the work step. | available (`skills/implement-task/`) |
+| `review-documentation` | Reviews all documents in `doc/` for consistency with each other and with the rest of the project, and for correctness against the actual state of the project. It fixes clear errors and asks the user about everything else. Used in the regular maintenance. | available (`skills/review-documentation/`) |
 
 Skills are stored in `skills/`; `.claude/skills` links to it, so Claude Code registers them
 natively.
@@ -146,7 +147,7 @@ flowchart TD
     subgraph MAINT["Regular maintenance"]
         timer(["Periodically"])
         fork{"+"}
-        reviewDocs["Review the technical<br/>project documentation"]
+        reviewDocs["Review the technical<br/>project documentation<br/>(review-documentation)"]
         optimizeAiDocs["Optimize the AI docs<br/>(skills and AGENTS.md)"]
         codeQa["Perform QA measures<br/>on the code"]
         join{"+"}
@@ -194,7 +195,8 @@ selected and implemented in a later iteration of the loop.
 Independently of individual requirements, the developer regularly performs three activities in
 parallel:
 
-- Review the technical project documentation in `doc/`.
+- Review the technical project documentation in `doc/` for consistency and correctness, with
+  the skill `review-documentation`.
 - Optimize the AI docs: the skills in `skills/` and `AGENTS.md`.
 - Perform quality assurance measures on the code.
 
