@@ -32,8 +32,8 @@ reads it before working on further tasks.
    addition to the domain, problems and features, contains a short section "Development"
    that keeps the project-independent parts of the old `README.md`:
    - the prerequisites, with a link to `doc/developerInfrastructure.md`,
-   - working with tasks: the skills `add-task`, `improve-task` and `implement-task`, and the
-     most important `scripts/tasks.sh` commands.
+   - working with tasks: the cycle of `improve-task` and `implement-task`, the skill
+     `add-task`, and the most important `scripts/tasks.sh` commands.
 3. Update the section "About this project" in `AGENTS.md`: add a short summary of the
    application's purpose (domain and problems solved) based on `README.md`, and keep the
    reference to `README.md` for the details.
@@ -46,13 +46,14 @@ The information comes from the user; the AI asks for it and does not invent it.
       the application.
 - [ ] `README.md` exists in the repository root and describes the domain of the application.
 - [ ] `README.md` no longer contains the description of the project template (e.g. the
-      sections "Getting started", "Adapting the template" and "License") and no links to
+      sections "How to start a project", "Adapting the template" and "License") and no links to
       files that do not exist (e.g. `LICENSE`).
 - [ ] `README.md` describes the problems the application solves.
 - [ ] `README.md` describes the new features the application provides.
 - [ ] `README.md` is titled with the project name and contains a section "Development" with
-      the link to `doc/developerInfrastructure.md`, the skills `add-task`, `improve-task` and
-      `implement-task`, and the most important `scripts/tasks.sh` commands.
+      the link to `doc/developerInfrastructure.md`, the cycle of `improve-task` and
+      `implement-task`, the skill `add-task`, and the most important `scripts/tasks.sh`
+      commands.
 - [ ] The content of `README.md` is based on the user's answers.
 - [ ] The section "About this project" in `AGENTS.md` summarizes the application's purpose
       in line with `README.md` and refers to `README.md` for the details.

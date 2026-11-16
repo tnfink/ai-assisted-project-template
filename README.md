@@ -60,7 +60,7 @@ in other assistants, ask e.g. "improve TASK-0002".
 1. **Improve:** `/improve-task TASK-<NNNN>` checks the task against the current state of the
    project. It fixes outdated references and vague wording directly, and proposes changes of
    scope (e.g. an extra question or a split into several tasks), which you accept or reject.
-   Only the task file changes.
+   It changes only tasks, never the project itself.
 2. **Implement:** `/implement-task TASK-<NNNN>` checks the Definition of Ready, the
    dependencies and the required tools, sets the task to `in-work` and does the work. It asks
    you whenever information or a decision is needed. At the end, it verifies every acceptance
