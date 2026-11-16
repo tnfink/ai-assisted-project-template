@@ -81,12 +81,7 @@ Finally, add a rule to `AGENTS.md` that every implementation must follow
 
 ## History
 
-<!--
-  Log of all status changes, oldest first. Add a row for every change of the Status field.
-  Timestamp format: ISO 8601 with time zone offset, e.g. 2026-11-11T14:30+0100
-  (get it with: date +%Y-%m-%dT%H:%M%z).
-  Comment: optional, but required for "waiting" and "aborted" (state the reason).
--->
+<!-- All status changes, oldest first. Maintained by scripts/tasks.sh status; do not edit. -->
 
 | Timestamp                | Status | Comment       |
 |--------------------------|--------|---------------|

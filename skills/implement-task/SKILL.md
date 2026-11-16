@@ -23,7 +23,7 @@ Do not change anything in the project before all of these checks pass.
 1. **Status:** the status must be `open`, `in-work` (resuming) or `waiting` (resuming after the
    reason for waiting is resolved). If it is `done` or `aborted`, stop and tell the user.
 2. **Dependencies:** every task listed under **Dependencies** must have the status `done`
-   (check with `scripts/tasks.sh list done`). If not, stop and tell the user which dependencies
+   (check with `scripts/tasks.sh list`). If not, stop and tell the user which dependencies
    are missing.
 3. **Definition of Ready:** read `doc/aiTaskDefinitionOfReady.md` and check the task against
    every criterion in it.
@@ -56,6 +56,8 @@ Always change the status with `scripts/tasks.sh status`, never by editing the ta
 - Ask for free-text information (e.g. names, descriptions, ratings with explanations) as plain
   text in the conversation. Use a multiple-choice question dialog only when the user chooses
   between fixed alternatives.
+- Ask independent questions together in one message. Ask one at a time only when an answer
+  influences the next question, or when the task says so (e.g. one decision per topic).
 - If you discover additional work that is needed but outside this task, do not do it. Propose
   creating a new task with the skill `add-task` instead.
 - If you are blocked (e.g. waiting for the user or an external party), set the status with
@@ -77,8 +79,8 @@ Only when all acceptance criteria and all Definition of Done criteria are fulfil
 
 1. Set the status to `done`:
    `scripts/tasks.sh status <ID> done "All acceptance criteria and the Definition of Done are fulfilled"`
-2. Run `scripts/tasks.sh list done` and check that the task appears.
-3. Report to the user: what was done, which files were changed, how each acceptance criterion
+   The script prints `<ID>: in-work -> done`; if it reports an error, fix it before going on.
+2. Report to the user: what was done, which files were changed, how each acceptance criterion
    was verified, and any open points or proposed follow-up tasks.
 
 Do not commit changes unless the user asks for it.
