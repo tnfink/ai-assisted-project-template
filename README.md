@@ -1,6 +1,6 @@
 # ai-assisted-project-template
 
-**Let the AI write the code, and keep control of your project.**
+**Let the AI write the code, but keep control of your project.**
 
 AI coding assistants (AICA) such as Claude Code, Codex, Copilot or Cursor can implement whole
 features on their own. Without structure, though, the same problems keep coming back:
@@ -24,8 +24,6 @@ This template gives humans and AI a shared way of working that solves these prob
 - **Documentation for the AI** (`AGENTS.md`, `doc/`) tells every session where everything is
   and which rules apply. **You make the decisions**; the AI proposes, asks and records them.
 
-> **Note:** This README describes the template. In a project created from it, this file is
-> replaced by the project's own README in task `TASK-0002`.
 
 ## How to start a project
 
@@ -157,7 +155,12 @@ Key documents and tools:
   every change.
 - **Rules for the AI:** keep `AGENTS.md` up to date when structure or conventions change.
 
-## License
+# Note
+
+> **Note:** This README describes the template. In a project created from it, this file is
+> replaced by the project's own README in task `TASK-0002`.
+
+# License
 
 This template is licensed under the [BSD Zero Clause License (0BSD)](LICENSE): you may use, copy,
 modify and distribute it for any purpose, without having to keep any copyright notice.
