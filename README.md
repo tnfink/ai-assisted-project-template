@@ -76,13 +76,13 @@ decide, and the AI writes the results down.
 
 | Task      | What happens                                                                    | Result |
 |-----------|---------------------------------------------------------------------------------|--------|
-| TASK-0001 | You name the application and choose how to handle git (see below). The AI runs `scripts/init-project.sh`. | Renamed project, `AGENTS.md` |
-| TASK-0002 | The AI asks you about the domain, the problems the application solves and its features. | `README.md` of your project |
-| TASK-0003 | The AI explains the 9 quality characteristics of ISO 25010 for your application; you rate each from 1 to 5 and say why. | `doc/qualityobjectives.md` |
-| TASK-0004 | The AI asks, with examples, about 3rd party systems, prescribed technologies, legal requirements and hosting. | `doc/context.md` |
-| TASK-0005 | Topic by topic (structure, language and runtime, frameworks, UI, data storage, integration, deployment, build and test tools), the AI proposes options with pros and cons; you decide. | `doc/architecture.md` |
-| TASK-0006 | The AI creates the core application with build, tests and static quality checks, using the decided architecture. | Code, `doc/buildAndTest.md` |
-| TASK-0007 | The AI proposes automated QA measures based on your quality objectives; you decide, and the AI creates tasks for them and adds them to the skill `perform-qa-measurements`. | `doc/qameasures.md`, new tasks |
+| TASK-0001 | **Initialize the project.** You name the application and choose how to handle git (see below). The AI runs `scripts/init-project.sh`. | Renamed project, `AGENTS.md` |
+| TASK-0002 | **Describe the application.** The AI asks you about the domain, the problems the application solves and its features. | `README.md` of your project |
+| TASK-0003 | **Define quality objectives.** The AI explains the 9 quality characteristics of ISO 25010 for your application; you rate each from 1 to 5 and say why. | `doc/qualityobjectives.md` |
+| TASK-0004 | **Discover constraints.** The AI asks, with examples, about 3rd party systems, prescribed technologies, legal requirements and hosting. | `doc/context.md` |
+| TASK-0005 | **Define SW architecture.** Topic by topic (structure, language and runtime, frameworks, UI, data storage, integration, deployment, build and test tools), the AI proposes options with pros and cons; you decide. | `doc/architecture.md` |
+| TASK-0006 | **Create the core application.** The AI creates the core application with build, tests and static quality checks, using the decided architecture. | Code, `doc/buildAndTest.md` |
+| TASK-0007 | **Define QA measures.** The AI proposes automated QA measures based on your quality objectives; you decide, and the AI creates tasks for them and adds them to the skill `perform-qa-measurements`. | `doc/qameasures.md`, new tasks |
 
 **Git in TASK-0001:** with *Use this template*, your repository is kept as it is. With a
 direct clone, TASK-0001 either deletes the template's git history and remotes, or keeps the
