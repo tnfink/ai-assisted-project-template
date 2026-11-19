@@ -37,8 +37,8 @@ measure whose implementation task is not yet `done` is listed with the status
 ok=1; for f in scripts/*.sh; do bash -n "$f" || ok=0; [ -x "$f" ] || { echo "not executable: $f"; ok=0; }; done; [ $ok = 1 ] && echo "scripts OK"
 ```
 
-**Task dependencies** (QA-4): every dependency exists and has a lower number than the task
-(task numbers show the order, see `AGENTS.md`).
+**Task dependencies** (QA-4): every dependency exists, and the dependencies contain no cycle
+(the order of the tasks is given by their dependencies, see `AGENTS.md`).
 
 ```bash
 python3 -I - <<'EOF'
@@ -50,7 +50,14 @@ for f in sorted(pathlib.Path('aitasks').glob('TASK-*.md')):
     deps = re.search(r'^\| \*\*Dependencies\*\* +\| ([^|]*)\|', t, re.M).group(1).strip()
     tasks[tid] = [d.strip() for d in deps.split(',')] if deps != 'none' else []
 bad = [f'{t}: unknown dependency {d}' for t, ds in tasks.items() for d in ds if d not in tasks]
-bad += [f'{t}: depends on later task {d}' for t, ds in tasks.items() for d in ds if d in tasks and d >= t]
+state = {}
+def visit(t, path):
+    if state.get(t) == 'done': return
+    if state.get(t) == 'active': bad.append('cycle: ' + ' -> '.join(path + [t])); return
+    state[t] = 'active'
+    for d in tasks.get(t, []): visit(d, path + [t])
+    state[t] = 'done'
+for t in tasks: visit(t, [])
 print('\n'.join(bad) or f'{len(tasks)} tasks, dependencies OK'); sys.exit(1 if bad else 0)
 EOF
 ```

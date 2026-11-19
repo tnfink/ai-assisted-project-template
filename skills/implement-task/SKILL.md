@@ -12,8 +12,9 @@ acceptance criteria and the Definition of Done are fulfilled.
 ## 1. Identify the task
 
 - The user names the task by ID (e.g. `TASK-0003`) or file. Find its file in `aitasks/`.
-- If no task is given, run `scripts/tasks.sh list open`, propose the open task with the lowest
-  number whose dependencies are all `done`, and ask the user to confirm.
+- If no task is given, run `scripts/tasks.sh list -deps`, propose an open task whose
+  dependencies are all `done` (the one with the lowest number if there are several), and ask
+  the user to confirm.
 - Read the whole task file.
 
 ## 2. Check whether work can start

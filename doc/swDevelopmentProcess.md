@@ -41,7 +41,8 @@ and not deleted.
 **In this project:**
 
 - Each AI task is a Markdown file in `aitasks/`, named `TASK-<NNNN>-<short-name>.md`.
-- Task numbers show the order in which tasks should be done.
+- Task IDs never change. Only the setup tasks are numbered in the order they are done; for all
+  later tasks, the order is given by their dependencies.
 - A task contains: ID, short description, status, optional external link, dependencies,
   motivation, task description, acceptance criteria and a history of all status changes.
 - The status is one of `open`, `in-work`, `waiting`, `done` and `aborted`.

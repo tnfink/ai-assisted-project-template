@@ -71,9 +71,11 @@ symbolic links on Windows).
   `scripts/tasks.sh status TASK-0003 waiting "Waiting for the user's ratings"`), never by editing
   the task file: the script records the change with a timestamp in the task's **History** and
   requires a reason for `waiting` and `aborted`.
-- **Task numbers show the order:** tasks are numbered in the order they should be done. If a new
-  task has to be done before existing ones, renumber the tasks so the numbers still show the
-  order, and update all references to the changed IDs (dependencies and text).
+- **Task numbers never change:** a task keeps its ID for its whole life, because commits,
+  external links and other tasks refer to it. Only the setup tasks (TASK-0001 to TASK-0007) are
+  numbered in the order they are done. For all later tasks, the order is given by their
+  dependencies, not by their numbers: if a new task has to be done before existing ones, add it
+  to their dependencies instead of renumbering.
 - **Project initialization:** `scripts/init-project.sh NAME` turns a new copy of this template
   into a new project (renames it, resets or keeps the git history). It deletes the git history by
   default, so only run it as part of the corresponding task and after the user has confirmed.

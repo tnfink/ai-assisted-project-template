@@ -24,7 +24,6 @@ This template gives humans and AI a shared way of working that solves these prob
 - **Documentation for the AI** (`AGENTS.md`, `doc/`) tells every session where everything is
   and which rules apply. **You make the decisions**; the AI proposes, asks and records them.
 
-
 ## How to start a project
 
 ### 1. Create your project from the template
@@ -113,7 +112,7 @@ scripts/tasks.sh help          # all commands
 ```
 
 Each task has a status (`open`, `in-work`, `waiting`, `done`, `aborted`) and a history of all
-status changes. Task numbers show the order in which tasks should be done.
+status changes. Task IDs never change; the order of the tasks is given by their dependencies.
 
 ## What's inside
 
@@ -155,12 +154,12 @@ Key documents and tools:
   every change.
 - **Rules for the AI:** keep `AGENTS.md` up to date when structure or conventions change.
 
-# Note
+## Note
 
-> **Note:** This README describes the template. In a project created from it, this file is
-> replaced by the project's own README in task `TASK-0002`.
+This README describes the template. In a project created from it, this file is
+replaced by the project's own README in task `TASK-0002`.
 
-# License
+## License
 
 This template is licensed under the [BSD Zero Clause License (0BSD)](LICENSE): you may use, copy,
 modify and distribute it for any purpose, without having to keep any copyright notice.
