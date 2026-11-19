@@ -24,6 +24,8 @@ This template gives humans and AI a shared way of working that solves these prob
 - **Documentation for the AI** (`AGENTS.md`, `doc/`) tells every session where everything is
   and which rules apply. **You make the decisions**; the AI proposes, asks and records them.
 
+This article gives a short introduction about the AI-based software development process that was the starting point for this template and also shows an example on how to use it: [AI-Assisted Software Development: A Pragmatic Process and Project Template](https://blog.spree.de/2026/11/18/ai-assisted-software-development-a-pragmatic-process-and-project-template/).
+
 ## How to start a project
 
 ### 1. Create your project from the template
