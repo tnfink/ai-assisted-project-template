@@ -23,33 +23,38 @@ reads it before working on further tasks.
    information:
    - the **domain** of the application,
    - the **problems** the application solves,
-   - the **new features** the application provides.
+   - the **new features** the application provides,
+   - how the application is **made available** to its users, e.g. as an open source product,
+     an internal application of a company, a paid service or product, or something else.
 2. Save the collected information in a central `README.md` in the repository root. This
    replaces the existing `README.md`, which describes the project template and how to use it;
    its content no longer applies to the new project. This includes its section "License",
    which links to the template's `LICENSE` file removed in TASK-0001.
    The new `README.md` is titled with the project name (as given in `AGENTS.md`) and, in
-   addition to the domain, problems and features, contains a short section "Development"
-   that keeps the project-independent parts of the old `README.md`:
+   addition to the domain, problems, features and the way the application is made available,
+   contains a short section "Development" that keeps the project-independent parts of the old
+   `README.md`:
    - the prerequisites, with a link to `doc/developerInfrastructure.md`,
    - working with tasks: the cycle of `improve-task` and `implement-task`, the skill
      `add-task`, and the most important `scripts/tasks.sh` commands.
 3. Update the section "About this project" in `AGENTS.md`: add a short summary of the
-   application's purpose (domain and problems solved) based on `README.md`, and keep the
-   reference to `README.md` for the details.
+   application's purpose (domain, problems solved and how it is made available) based on
+   `README.md`, and keep the reference to `README.md` for the details.
 
 The information comes from the user; the AI asks for it and does not invent it.
 
 ## Acceptance criteria
 
-- [ ] The AI has asked the user about the domain, the problems solved and the new features of
-      the application.
+- [ ] The AI has asked the user about the domain, the problems solved, the new features of
+      the application and how it is made available to its users.
 - [ ] `README.md` exists in the repository root and describes the domain of the application.
 - [ ] `README.md` no longer contains the description of the project template (e.g. the
       sections "How to start a project", "Adapting the template" and "License") and no links to
       files that do not exist (e.g. `LICENSE`).
 - [ ] `README.md` describes the problems the application solves.
 - [ ] `README.md` describes the new features the application provides.
+- [ ] `README.md` describes how the application is made available to its users (e.g. open
+      source, internal application, paid service).
 - [ ] `README.md` is titled with the project name and contains a section "Development" with
       the link to `doc/developerInfrastructure.md`, the cycle of `improve-task` and
       `implement-task`, the skill `add-task`, and the most important `scripts/tasks.sh`
