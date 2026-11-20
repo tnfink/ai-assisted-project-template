@@ -18,6 +18,7 @@ set -u
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TASKS="$REPO_DIR/scripts/tasks.sh"
 INIT="$REPO_DIR/scripts/init-project.sh"
+CHECK="$REPO_DIR/scripts/check.sh"
 
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
@@ -248,9 +249,83 @@ test_init_project() {
 }
 
 # ---------------------------------------------------------------------------
+# check.sh
+# ---------------------------------------------------------------------------
+
+# make_check_repo DIR: creates a minimal repository that passes all checks: two
+# tasks (TASK-0002 depends on TASK-0001), one skill and a valid link.
+make_check_repo() {
+    local dir="$1"
+    mkdir -p "$dir/scripts" "$dir/aitasks" "$dir/skills/demo" "$dir/.claude" "$dir/doc"
+    cp "$CHECK" "$TASKS" "$dir/scripts/"
+    printf -- '---\nname: demo\ndescription: A demo skill.\n---\n' > "$dir/skills/demo/SKILL.md"
+    ln -s ../skills "$dir/.claude/skills"
+    printf '# AGENTS.md\n\n| Skill | Use |\n|---|---|\n| `demo` | demo |\n' > "$dir/AGENTS.md"
+    echo "# Doc" > "$dir/doc/a.md"
+    echo "See [a](doc/a.md) and [web](https://example.com)." > "$dir/README.md"
+    "$dir/scripts/tasks.sh" new "First" >/dev/null
+    "$dir/scripts/tasks.sh" new "Second" >/dev/null
+    set_deps "$dir/aitasks/TASK-0002-second.md" "TASK-0001"
+}
+
+# set_deps FILE DEPENDENCIES: sets the Dependencies row of a task file.
+set_deps() {
+    sed -i.bak "s/^| \*\*Dependencies\*\*  |.*/| **Dependencies**  | $2 |/" "$1" && rm "$1.bak"
+}
+
+test_check() {
+    local repo out
+
+    check_contains "check help shows the usage" "$("$CHECK" help)" "Usage:"
+    check_fails "check rejects an unknown argument" "$CHECK" foo
+
+    repo="$TMP/check-ok"
+    make_check_repo "$repo"
+    check "check passes on a consistent repository" "$repo/scripts/check.sh"
+    out="$("$repo/scripts/check.sh")"
+    check_equal "check prints one OK line per check" "5" "$(printf '%s\n' "$out" | grep -c '^OK ')"
+
+    repo="$TMP/check-script"
+    make_check_repo "$repo"
+    chmod -x "$repo/scripts/tasks.sh"
+    printf 'if then\n' > "$repo/scripts/broken.sh" && chmod +x "$repo/scripts/broken.sh"
+    out="$("$repo/scripts/check.sh")"
+    check_fails "check fails on a script error" "$repo/scripts/check.sh"
+    check_contains "check finds a non-executable script" "$out" "not executable: scripts/tasks.sh"
+    check_contains "check finds a syntax error" "$out" "syntax error: scripts/broken.sh"
+
+    repo="$TMP/check-deps"
+    make_check_repo "$repo"
+    set_deps "$repo/aitasks/TASK-0002-second.md" "TASK-0001, TASK-0009"
+    out="$("$repo/scripts/check.sh")"
+    check_contains "check finds an unknown dependency" "$out" "TASK-0002: unknown dependency TASK-0009"
+    set_deps "$repo/aitasks/TASK-0002-second.md" "TASK-0001"
+    set_deps "$repo/aitasks/TASK-0001-first.md" "TASK-0002"
+    out="$("$repo/scripts/check.sh")"
+    check_contains "check finds a dependency cycle" "$out" "cycle: TASK-0001 -> TASK-0002 -> TASK-0001"
+    check_contains "a cycle fails only QA-4" "$out" "OK    QA-3"
+
+    repo="$TMP/check-skills"
+    make_check_repo "$repo"
+    mkdir "$repo/skills/other"
+    printf -- '---\nname: wrong\n---\n' > "$repo/skills/other/SKILL.md"
+    out="$("$repo/scripts/check.sh")"
+    check_contains "check finds bad skill frontmatter" "$out" "bad frontmatter: skills/other/SKILL.md"
+    check_contains "check finds a skill missing in AGENTS.md" "$out" "not in the skills table of AGENTS.md: other"
+
+    repo="$TMP/check-links"
+    make_check_repo "$repo"
+    echo "[missing](missing.md)" >> "$repo/doc/a.md"
+    out="$("$repo/scripts/check.sh")"
+    check_contains "check finds a broken link" "$out" "doc/a.md: missing.md"
+    check_contains "check reports the failed check" "$out" "FAIL  QA-6"
+}
+
+# ---------------------------------------------------------------------------
 
 test_tasks
 test_init_project
+test_check
 
 echo "$CHECKS checks, $FAILURES failed."
 [ "$FAILURES" -eq 0 ]

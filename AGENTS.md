@@ -6,16 +6,19 @@ Guidance for AI coding assistants (Claude Code, Codex, Copilot, Cursor, etc.) wo
 
 This repository is a **template** for software development projects that rely heavily on an AI coding assistant.
 It is meant to be cloned and used as the starting point for a new project. When a project is created from
-this template, update this file with project-specific information (purpose, tech stack, build and test commands).
+this template, update this file with project-specific information (purpose, tech stack, and a reference to
+`doc/buildAndTest.md` for the build and test commands).
 
 ## Repository layout
 
-| Directory   | Purpose                                                                 |
+Put every file into the directory for its kind:
+
+| Directory   | Content                                                                 |
 |-------------|-------------------------------------------------------------------------|
-| `doc/`      | All project documentation (architecture, requirements, decisions, guides). |
-| `scripts/`  | All scripts (build, test, setup, deployment, utilities).                |
-| `skills/`   | AI skills: reusable instructions or workflows for the AI assistant.     |
-| `aitasks/`  | Tasks for the AI coding assistant to work on.                           |
+| `doc/`      | All documentation; the only exceptions are this file, `CLAUDE.md` and the top-level `README.md` |
+| `scripts/`  | All scripts (build, test, setup, deployment, utilities)                 |
+| `skills/`   | Skills for the AI assistant (see below)                                 |
+| `aitasks/`  | Tasks for the AI assistant, one file per task                           |
 
 ## Available tools
 
@@ -47,16 +50,13 @@ symbolic links on Windows).
 
 ## Conventions
 
-- **Documentation** goes into `doc/`. Do not scatter documentation files across the repository
-  (this `AGENTS.md` and a top-level `README.md` are the exceptions).
-- **Scripts** go into `scripts/`. Make shell scripts executable and give each a short header comment
-  explaining what it does and how to call it. The scripts are tested by `scripts/test.sh`: add
-  tests for every new script or command, and run `scripts/test.sh` after every change to a script.
-- **Tasks** go into `aitasks/`, one file per task. Create, review and implement them with the
-  skills above; a task file is the specification of the work. Handle tasks with
-  `scripts/tasks.sh` (`scripts/tasks.sh help` shows all commands): always create a task with
-  `scripts/tasks.sh new "Short description"` (the template is defined in the script), then fill
-  in the remaining sections. The script reads the `ID`, `Status`, `Dependencies` and
+- **Scripts:** make shell scripts executable and give each a short header comment explaining
+  what it does and how to call it. The scripts are tested by `scripts/test.sh`: add tests for
+  every new script or command, and run `scripts/test.sh` after every change to a script.
+- **Tasks:** a task file is the specification of the work. Create, review and implement tasks
+  with the skills above. Handle tasks with `scripts/tasks.sh` (`scripts/tasks.sh help` shows
+  all commands): always create a task with `scripts/tasks.sh new "Short description"` (the
+  template is defined in the script), then fill in the remaining sections. The script reads the `ID`, `Status`, `Dependencies` and
   `Short description` rows of the header table, so keep their format intact (dependencies as a
   comma-separated list of task IDs, or `none`).
 - **Task status** is kept in the task file and is one of:
@@ -81,12 +81,7 @@ symbolic links on Windows).
   default, so only run it as part of the corresponding task and after the user has confirmed.
 - Keep this file up to date when the structure or conventions of the project change.
 
-## Working approach
+## Development process
 
 The development process of this project is described in
-[`doc/swDevelopmentProcess.md`](doc/swDevelopmentProcess.md). In short:
-
-1. Read the relevant task in `aitasks/` and any related documentation in `doc/`.
-2. Check `skills/` for applicable skills.
-3. Implement the change, reusing existing scripts in `scripts/` where possible.
-4. Update documentation in `doc/` when behavior or structure changes.
+[`doc/swDevelopmentProcess.md`](doc/swDevelopmentProcess.md).

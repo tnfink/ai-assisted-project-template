@@ -15,15 +15,15 @@ the task file; it does not implement the task.
 - If no task is given, run `scripts/tasks.sh list open` and ask the user which task to review.
 - Read the whole task file.
 - If the status is `done` or `aborted`, stop and tell the user: completed tasks document past
-  decisions and are not changed. If the status is `in-work`, warn the user that the task is
-  being implemented and continue only if the user confirms.
+  decisions and are not changed. If the status is `in-work` or `waiting`, warn the user that
+  the task is being implemented and continue only if the user confirms.
 
 ## 2. Gather the current state of the project
 
 Collect what is needed to judge the task, focused on what the task touches:
 
-- `AGENTS.md`, `README.md` and the documents in `doc/` relevant to the task (e.g.
-  `doc/architecture.md`, `doc/context.md`, `doc/qualityobjectives.md`, if they exist).
+- `README.md` and the documents in `doc/` relevant to the task (e.g. `doc/architecture.md`,
+  `doc/context.md`, `doc/qualityobjectives.md`, if they exist); `AGENTS.md` is already loaded.
 - The files, scripts and code the task refers to or will have to change.
 - All other tasks: `scripts/tasks.sh list` and, where relevant, their files, in particular the
   dependencies and tasks that were completed after this task was created (see its **History**).
@@ -71,7 +71,8 @@ Sort every finding into one of two groups:
   dependency that clearly follows from the project. Apply these directly.
 - **Changes of intent or scope**: changing or dropping requirements, adding new requirements,
   splitting the task, changing the short description, or aborting an obsolete task.
-  **Ask the user first** and apply only what the user agrees to.
+  **Ask the user first**, about all of them together in one message, and apply only what the
+  user agrees to.
 
 Never invent requirements, and keep the user's original wording for requirements and
 constraints wherever it is still correct.

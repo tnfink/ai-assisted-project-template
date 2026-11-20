@@ -139,6 +139,7 @@ Key documents and tools:
 - `scripts/tasks.sh`: lists and creates tasks and changes their status
 - `scripts/init-project.sh`: turns a new copy of the template into a new project
 - `scripts/test.sh`: automated tests for the scripts
+- `scripts/check.sh`: consistency checks of scripts, tasks, skills and links
 - Skills `add-task`, `improve-task` and `implement-task`: create, review and implement tasks
 - Skill `review-documentation`: checks all documents in `doc/` for consistency and correctness
 - Skill `review-ai-specs`: checks `AGENTS.md`, the skills and the other AI docs for speed,

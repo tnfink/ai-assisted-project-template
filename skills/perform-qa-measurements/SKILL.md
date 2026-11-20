@@ -20,71 +20,17 @@ every decided measure gets a row, and the template measurements that still apply
 measure whose implementation task is not yet `done` is listed with the status
 `planned (TASK-<NNNN>)` and skipped; that task sets it to `active` and fills in its command.
 
-| ID   | Measurement                     | Command (see below)        | Passes when                             | Status |
-|------|---------------------------------|----------------------------|-----------------------------------------|--------|
-| QA-1 | Tests of the scripts            | `scripts/test.sh`          | exit code 0, "0 failed"                 | active |
-| QA-2 | Syntax and permissions of the scripts | *Scripts* below      | no output except "scripts OK"           | active |
-| QA-3 | Task files are readable         | `scripts/tasks.sh list -deps` | exit code 0, every task listed       | active |
-| QA-4 | Task dependencies are valid     | *Task dependencies* below  | exit code 0                             | active |
-| QA-5 | Skills are well-formed and registered | *Skills* below       | no output except "skills OK"            | active |
-| QA-6 | Links in Markdown files are valid | *Links* below            | exit code 0                             | active |
+| ID   | Measurement                           | Command            | Passes when                    | Status |
+|------|---------------------------------------|--------------------|--------------------------------|--------|
+| QA-1 | Tests of the scripts                  | `scripts/test.sh`  | exit code 0, "0 failed"        | active |
+| QA-2 | Syntax and permissions of the scripts | `scripts/check.sh` | its line for QA-2 starts with `OK` | active |
+| QA-3 | Task files are readable               | `scripts/check.sh` | its line for QA-3 starts with `OK` | active |
+| QA-4 | Task dependencies exist and contain no cycle | `scripts/check.sh` | its line for QA-4 starts with `OK` | active |
+| QA-5 | Skills are well-formed and registered | `scripts/check.sh` | its line for QA-5 starts with `OK` | active |
+| QA-6 | Links in Markdown files are valid     | `scripts/check.sh` | its line for QA-6 starts with `OK` | active |
 
-### Commands
-
-**Scripts** (QA-2): every script has valid Bash syntax and is executable.
-
-```bash
-ok=1; for f in scripts/*.sh; do bash -n "$f" || ok=0; [ -x "$f" ] || { echo "not executable: $f"; ok=0; }; done; [ $ok = 1 ] && echo "scripts OK"
-```
-
-**Task dependencies** (QA-4): every dependency exists, and the dependencies contain no cycle
-(the order of the tasks is given by their dependencies, see `AGENTS.md`).
-
-```bash
-python3 -I - <<'EOF'
-import re, pathlib, sys
-tasks = {}
-for f in sorted(pathlib.Path('aitasks').glob('TASK-*.md')):
-    t = f.read_text(encoding='utf-8')
-    tid = re.search(r'^\| \*\*ID\*\* +\| (\S+)', t, re.M).group(1)
-    deps = re.search(r'^\| \*\*Dependencies\*\* +\| ([^|]*)\|', t, re.M).group(1).strip()
-    tasks[tid] = [d.strip() for d in deps.split(',')] if deps != 'none' else []
-bad = [f'{t}: unknown dependency {d}' for t, ds in tasks.items() for d in ds if d not in tasks]
-state = {}
-def visit(t, path):
-    if state.get(t) == 'done': return
-    if state.get(t) == 'active': bad.append('cycle: ' + ' -> '.join(path + [t])); return
-    state[t] = 'active'
-    for d in tasks.get(t, []): visit(d, path + [t])
-    state[t] = 'done'
-for t in tasks: visit(t, [])
-print('\n'.join(bad) or f'{len(tasks)} tasks, dependencies OK'); sys.exit(1 if bad else 0)
-EOF
-```
-
-**Skills** (QA-5): every skill has a `SKILL.md` whose `name` equals its directory and which has
-a `description`, every skill is listed in the skills table of `AGENTS.md`, and `.claude/skills`
-links to `skills/`.
-
-```bash
-ok=1; for d in skills/*/; do n=$(basename "$d"); { grep -q "^name: $n\$" "$d/SKILL.md" && grep -q '^description: ..' "$d/SKILL.md"; } || { echo "bad frontmatter: $n"; ok=0; }; grep -q "^| \`$n\`" AGENTS.md || { echo "not in AGENTS.md: $n"; ok=0; }; done; [ "$(readlink .claude/skills)" = ../skills ] || { echo "bad link: .claude/skills"; ok=0; }; [ $ok = 1 ] && echo "skills OK"
-```
-
-**Links** (QA-6): every relative link in a Markdown file points to an existing file.
-
-```bash
-python3 -I - <<'EOF'
-import re, pathlib, sys
-bad = []
-for md in pathlib.Path('.').rglob('*.md'):
-    if '.git' in md.parts or '.claude' in md.parts:
-        continue
-    for target in re.findall(r'\]\(([^)#\s]+)', md.read_text(encoding='utf-8')):
-        if '://' not in target and not target.startswith('mailto:') and not (md.parent / target).exists():
-            bad.append(f'{md}: {target}')
-print('\n'.join(bad) or 'all links OK'); sys.exit(1 if bad else 0)
-EOF
-```
+`scripts/check.sh` runs QA-2 to QA-6 in one call and prints the findings of every failed
+check; `scripts/check.sh help` describes each check. Run it once for all of its measurements.
 
 ## 1. Prepare
 

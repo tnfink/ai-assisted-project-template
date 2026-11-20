@@ -19,8 +19,8 @@ there are reported or turned into tasks.
    that are not Markdown (e.g. a diagram file), read the parts that carry content, e.g. the
    labels of a diagram.
 2. Read the documents that the documentation in `doc/` refers to or that describe the same
-   things: `AGENTS.md`, `README.md`, the skills in `skills/` and the header comments and help
-   texts of the scripts in `scripts/`.
+   things: `README.md`, the skills in `skills/` and the header comments and help texts of the
+   scripts in `scripts/` (`AGENTS.md` is already loaded; compare it as well).
 3. Get an overview of the project itself: the directory structure, the build files, the
    scripts, and the tasks (`scripts/tasks.sh list -deps`). Read code, configuration and task
    files where a document makes a statement about them.
@@ -77,7 +77,8 @@ Sort every finding into one of three groups:
 - **Questions for the user:** contradictions where it is unclear which side is right, a
   deviation between `doc/architecture.md` and the code, statements about requirements, quality
   objectives or decisions that the user made, and removing or restructuring content.
-  **Ask the user first** and apply only what the user decides. Never change a recorded decision
+  **Ask the user first**, all questions together in one message, and apply only what the user
+  decides. Never change a recorded decision
   or its rationale on your own.
 - **Outside `doc/`:** problems in `AGENTS.md`, `README.md`, skills, scripts, code or tasks.
   Report them. For `AGENTS.md` and `README.md`, propose the correction and apply it only with

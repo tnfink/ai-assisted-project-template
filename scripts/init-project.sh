@@ -125,7 +125,7 @@ if [ -f AGENTS.md ]; then
             print "development projects that rely heavily on an AI coding assistant."
             print "The domain, the problems solved and the features of the application are described in"
             print "`README.md`. Keep this section up to date with project-specific information (purpose,"
-            print "tech stack, build and test commands)."
+            print "tech stack, and a reference to `doc/buildAndTest.md` for the build and test commands)."
             print ""
             skip = 1
             next
