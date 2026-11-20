@@ -46,8 +46,8 @@ and not deleted.
 - A task contains: ID, short description, status, optional external link, dependencies,
   motivation, task description, acceptance criteria and a history of all status changes.
 - The status is one of `open`, `in-work`, `waiting`, `done` and `aborted`.
-- Tasks are created and listed with `scripts/tasks.sh` (`scripts/tasks.sh help` shows all
-  commands). The task template is defined in that script.
+- Tasks are created and listed, and their status is changed, with `scripts/tasks.sh`
+  (`scripts/tasks.sh help` shows all commands). The task template is defined in that script.
 
 ### Human task management (HP issue tracker)
 
@@ -68,7 +68,7 @@ a successful build, a passing test suite and met static quality metrics.
 
 | Skill            | Purpose                                                                                       | Status in this project |
 |------------------|-----------------------------------------------------------------------------------------------|------------------------|
-| `add-task`       | Creates a new AI task from the information and wishes of a human. The AICA can add project-specific guidelines to the task automatically. | available (`skills/add-task/`) |
+| `add-task`       | Creates a new AI task from the information and wishes of a human. The skill itself can be adapted to the project, e.g. by the AICA in a discussion with the developer, so that it adds project-specific guidelines to every new task automatically. | available (`skills/add-task/`) |
 | `improve-task`   | Improves an existing AI task based on the current state of the project and the AICA's knowledge, so that it is functionally complete, technically feasible and unambiguous. It checks whether the task is still valid, updates it if not, and looks for other errors and possible improvements. | available (`skills/improve-task/`) |
 | `implement-task` | Implements an AI task. Before starting, it checks the task against the Definition of Ready (`doc/aiTaskDefinitionOfReady.md`). After a successful implementation, it checks the acceptance criteria and the Definition of Done (`doc/aiTaskDefinitionOfDone.md`) and marks the task as `done`, documenting the completion of the work step. | available (`skills/implement-task/`) |
 | `review-documentation` | Reviews all documents in `doc/` for consistency with each other and with the rest of the project, and for correctness against the actual state of the project. It fixes clear errors and asks the user about everything else. Used in the regular maintenance. | available (`skills/review-documentation/`) |
@@ -87,16 +87,20 @@ If individual documents become too large, they should be split into smaller piec
 knowledge. This wiki principle makes it easier for both humans and the AICA to find relevant
 information quickly and to reuse it selectively.
 
-**In this project:** all documentation is stored in `doc/`, e.g.:
+**In this project:** all documentation is stored in `doc/`:
 
+- `doc/swDevelopmentProcess.md`: this description of the development process
 - `doc/developerInfrastructure.md`: the tools installed on every developer's computer
-- `doc/architecture.md`: the software architecture and its rationale
-- `doc/buildAndTest.md`: the commands to build, test, check and run the application
-- `doc/qualityobjectives.md`: the quality objectives based on ISO/IEC 25010
-- `doc/context.md`: the context and constraints of the application
-- `doc/qameasures.md`: the automated QA measures derived from the quality objectives
 - `doc/aiTaskDefinitionOfReady.md` / `doc/aiTaskDefinitionOfDone.md`: the criteria a task must
   meet before work starts and before it is done
+- `doc/qualityobjectives.md`: the quality objectives based on ISO/IEC 25010 (created by
+  TASK-0003)
+- `doc/context.md`: the context and constraints of the application (created by TASK-0004)
+- `doc/architecture.md`: the software architecture and its rationale (created by TASK-0005)
+- `doc/buildAndTest.md`: the commands to build, test, check and run the application (created
+  by TASK-0006)
+- `doc/qameasures.md`: the automated QA measures derived from the quality objectives (created
+  by TASK-0007)
 
 The domain, problems and features of the application are described in the central `README.md`.
 
@@ -114,8 +118,6 @@ assistants. `CLAUDE.md` imports it, so Claude Code loads the same information.
 The diagram shows the development process from the perspective of the developer working with
 the AICA. It consists of two independent flows: the implementation of a requirement, and
 the regular maintenance of the documentation, the AI docs and the code quality.
-
-The original BPMN model is stored in `doc/swdevproc.bpmn`.
 
 ```mermaid
 flowchart TD

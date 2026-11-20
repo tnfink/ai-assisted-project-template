@@ -16,8 +16,8 @@ there are reported or turned into tasks.
 ## 1. Gather the documentation and the project state
 
 1. List all files in `doc/` (e.g. `ls doc/`) and read every one of them completely. For files
-   that are not Markdown (e.g. `doc/swdevproc.bpmn`), read the parts that carry content, e.g.
-   the labels of a diagram.
+   that are not Markdown (e.g. a diagram file), read the parts that carry content, e.g. the
+   labels of a diagram.
 2. Read the documents that the documentation in `doc/` refers to or that describe the same
    things: `AGENTS.md`, `README.md`, the skills in `skills/` and the header comments and help
    texts of the scripts in `scripts/`.
@@ -39,7 +39,7 @@ Compare the documents with each other and with `AGENTS.md`, `README.md` and the 
   `doc/swDevelopmentProcess.md` and `AGENTS.md`) name every document in `doc/`, and does every
   listed document exist or is it marked as created by a later task?
 - **Diagrams:** does every diagram match the text that describes it, and do diagrams that show
-  the same thing in different formats (e.g. Mermaid and BPMN) have the same elements and
+  the same thing in different formats (e.g. a Mermaid diagram and an image) have the same elements and
   labels?
 - **Terms and style:** are terms, names and spellings used the same way in all documents
   (e.g. task statuses, skill names, the project name)?
