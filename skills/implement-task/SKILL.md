@@ -68,15 +68,24 @@ Always change the status with `scripts/tasks.sh status`, never by editing the ta
 
 1. **Acceptance criteria:** check every acceptance criterion of the task. Verify it by a
    command, test or inspection, not by assumption. Tick each verified criterion (`- [x]`).
+   If a criterion can only be checked by the user (e.g. playing a game or judging a layout),
+   tell the user exactly what to check, set the status with
+   `scripts/tasks.sh status <ID> waiting "Waiting for the user's check of <what>"`, and tick
+   the criterion only after the user confirms it; note the result next to it.
 2. **Definition of Done:** read `doc/aiTaskDefinitionOfDone.md` and check every criterion
    listed there in the same way. If it lists no criteria yet, this check passes.
 3. If a criterion is not fulfilled, continue implementing (step 4) and check again. If it
    cannot be fulfilled, leave the status `in-work` or set it to `waiting` with the reason, and
    tell the user.
+4. Only the user can decide to move an acceptance criterion to another task (a new one, created
+   with the skill `add-task`, or an existing one). Then strike the criterion through
+   (`~~...~~`), note the task it was moved to and the user's decision next to it, and add the
+   criterion to that task.
 
 ## 6. Complete the task
 
-Only when all acceptance criteria and all Definition of Done criteria are fulfilled:
+Only when all acceptance criteria (except those moved to another task) and all Definition of
+Done criteria are fulfilled:
 
 1. Set the status to `done`:
    `scripts/tasks.sh status <ID> done "All acceptance criteria and the Definition of Done are fulfilled"`

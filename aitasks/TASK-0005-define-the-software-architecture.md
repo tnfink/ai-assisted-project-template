@@ -20,9 +20,17 @@ implementation decisions consistent.
 
 After TASK-0002, TASK-0003 and TASK-0004 are done, define a software architecture.
 
+If the application builds on existing code (e.g. a port, a rewrite or an extension of an
+existing system, see `README.md` and `doc/context.md`), analyze that code before proposing
+anything: its programming language, the libraries and frameworks it uses, and its structure.
+Base the proposals on this analysis and summarize it in `doc/architecture.md`.
+
 The architecture covers both the structure and the technology stack, and is decided topic by
 topic. It covers at least these topics:
 
+- only if the application builds on existing code: how the existing code is reused (e.g. kept
+  and called, partly ported, or replaced), and where the existing code and other 3rd party
+  artifacts are located in the repository,
 - the structure of the application (e.g. modular monolith or microservices),
 - the programming language and its runtime, including their versions (e.g. the JDK, Python or
   Node.js version),
@@ -35,8 +43,9 @@ topic. It covers at least these topics:
   TASK-0006).
 
 A topic that does not apply to the application (e.g. no UI) is skipped with a short note in
-`doc/architecture.md`. Decide on stable releases; a pre-release version needs the user's
-explicit decision.
+`doc/architecture.md`. If the user wants to decide a topic later, create a task for it with
+the skill `add-task` and note the task in `doc/architecture.md`. Decide on stable releases; a
+pre-release version needs the user's explicit decision.
 
 For each topic:
 
@@ -64,11 +73,16 @@ Finally, add a rule to `AGENTS.md` that every implementation must follow
 
 ## Acceptance criteria
 
+- [ ] If the application builds on existing code, the AI has analyzed it (programming language,
+      libraries and frameworks, structure), and `doc/architecture.md` summarizes the analysis
+      and contains the decisions on the reuse of the existing code and the location of the 3rd
+      party artifacts in the repository.
 - [ ] For each topic listed in the task description, the AI has introduced a fitting
       architecture and at least one alternative to the user, with their advantages and
       disadvantages with respect to the quality objectives and the constraints, and has
       discussed them with the user.
-- [ ] The user has decided on each topic of the software architecture.
+- [ ] The user has decided on each topic of the software architecture, or a task has been
+      created for each topic the user wants to decide later, and `doc/architecture.md` names it.
 - [ ] `doc/architecture.md` exists and describes the software architecture the user decided on,
       with one section per topic listed in the task description, including the programming
       language and runtime with their versions, the build tool, the test framework and the

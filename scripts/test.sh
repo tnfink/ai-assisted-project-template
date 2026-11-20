@@ -18,7 +18,7 @@ set -u
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TASKS="$REPO_DIR/scripts/tasks.sh"
 INIT="$REPO_DIR/scripts/init-project.sh"
-CHECK="$REPO_DIR/scripts/check.sh"
+CHECK="$REPO_DIR/scripts/check-consistency.sh"
 
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
@@ -249,7 +249,7 @@ test_init_project() {
 }
 
 # ---------------------------------------------------------------------------
-# check.sh
+# check-consistency.sh
 # ---------------------------------------------------------------------------
 
 # make_check_repo DIR: creates a minimal repository that passes all checks: two
@@ -281,27 +281,27 @@ test_check() {
 
     repo="$TMP/check-ok"
     make_check_repo "$repo"
-    check "check passes on a consistent repository" "$repo/scripts/check.sh"
-    out="$("$repo/scripts/check.sh")"
+    check "check passes on a consistent repository" "$repo/scripts/check-consistency.sh"
+    out="$("$repo/scripts/check-consistency.sh")"
     check_equal "check prints one OK line per check" "5" "$(printf '%s\n' "$out" | grep -c '^OK ')"
 
     repo="$TMP/check-script"
     make_check_repo "$repo"
     chmod -x "$repo/scripts/tasks.sh"
     printf 'if then\n' > "$repo/scripts/broken.sh" && chmod +x "$repo/scripts/broken.sh"
-    out="$("$repo/scripts/check.sh")"
-    check_fails "check fails on a script error" "$repo/scripts/check.sh"
+    out="$("$repo/scripts/check-consistency.sh")"
+    check_fails "check fails on a script error" "$repo/scripts/check-consistency.sh"
     check_contains "check finds a non-executable script" "$out" "not executable: scripts/tasks.sh"
     check_contains "check finds a syntax error" "$out" "syntax error: scripts/broken.sh"
 
     repo="$TMP/check-deps"
     make_check_repo "$repo"
     set_deps "$repo/aitasks/TASK-0002-second.md" "TASK-0001, TASK-0009"
-    out="$("$repo/scripts/check.sh")"
+    out="$("$repo/scripts/check-consistency.sh")"
     check_contains "check finds an unknown dependency" "$out" "TASK-0002: unknown dependency TASK-0009"
     set_deps "$repo/aitasks/TASK-0002-second.md" "TASK-0001"
     set_deps "$repo/aitasks/TASK-0001-first.md" "TASK-0002"
-    out="$("$repo/scripts/check.sh")"
+    out="$("$repo/scripts/check-consistency.sh")"
     check_contains "check finds a dependency cycle" "$out" "cycle: TASK-0001 -> TASK-0002 -> TASK-0001"
     check_contains "a cycle fails only QA-4" "$out" "OK    QA-3"
 
@@ -309,14 +309,14 @@ test_check() {
     make_check_repo "$repo"
     mkdir "$repo/skills/other"
     printf -- '---\nname: wrong\n---\n' > "$repo/skills/other/SKILL.md"
-    out="$("$repo/scripts/check.sh")"
+    out="$("$repo/scripts/check-consistency.sh")"
     check_contains "check finds bad skill frontmatter" "$out" "bad frontmatter: skills/other/SKILL.md"
     check_contains "check finds a skill missing in AGENTS.md" "$out" "not in the skills table of AGENTS.md: other"
 
     repo="$TMP/check-links"
     make_check_repo "$repo"
     echo "[missing](missing.md)" >> "$repo/doc/a.md"
-    out="$("$repo/scripts/check.sh")"
+    out="$("$repo/scripts/check-consistency.sh")"
     check_contains "check finds a broken link" "$out" "doc/a.md: missing.md"
     check_contains "check reports the failed check" "$out" "FAIL  QA-6"
 }

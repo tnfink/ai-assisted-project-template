@@ -23,20 +23,30 @@ After the core application has been created in TASK-0006, use the quality object
 TASK-0003 (`doc/qualityobjectives.md`) to define QA measures, such as automated tests and code
 analysis:
 
-1. The AI creates a suggestion for automated QA measures, based on the quality objectives and
-   the core application with its build system, testing and static quality check from TASK-0006.
-2. The suggestion is discussed with the user.
-3. A decision must be made. The user decides which QA measures are implemented.
-4. Document the result in `doc/qameasures.md`, including:
+1. The AI lists the QA measures already in place from TASK-0006 (e.g. the automatic tests
+   and the static quality check, see `doc/buildAndTest.md`), each with the quality objectives
+   it addresses.
+2. The AI creates a suggestion for additional automated QA measures, based on the quality
+   objectives and the existing measures, and names the gaps they close (in particular for the
+   highest-rated quality objectives).
+3. The suggestion is discussed with the user.
+4. A decision must be made. The user decides which QA measures are implemented. Ask the user
+   for the reason of each decision. If the user gives no reason of their own, tell the user
+   that the arguments of the suggestion will be recorded as the rationale, and mark it in
+   `doc/qameasures.md` as "proposed by the AI, accepted by the user".
+5. Document the result in `doc/qameasures.md`, including:
+   - the existing QA measures from TASK-0006 and which quality objectives each addresses,
    - the decided QA measures and which quality objectives each of them addresses,
    - the suggested measures that were not chosen,
-   - the rationale for the decision, as given by the user.
-5. As result of this task, additional tasks are created, using the skill `add-task`, that
+   - the rationale for each decision, as given by the user, or marked as "proposed by the AI,
+     accepted by the user".
+6. As result of this task, additional tasks are created, using the skill `add-task`, that
    implement the decided QA measures.
-6. Adapt the skill `perform-qa-measurements` (`skills/perform-qa-measurements/SKILL.md`) to
-   all decided QA measures: add a row for every decided measure to its table of measurements,
-   with the status `planned (TASK-<NNNN>)` naming the task that implements it, and keep the
-   template measurements that still apply (remove the others). Each new task from step 5
+7. Adapt the skill `perform-qa-measurements` (`skills/perform-qa-measurements/SKILL.md`) to
+   all QA measures: add a row with its command and the status `active` for every existing
+   measure, and a row for every decided measure with the status `planned (TASK-<NNNN>)` naming
+   the task that implements it. Keep the template measurements that still apply (remove the
+   others). Each new task from step 6
    includes the acceptance criterion that its measure's row in the skill has a command and
    the status `active`, and that the skill runs it successfully.
 
@@ -44,19 +54,23 @@ Implementing the QA measures is out of scope; it is done in the newly created ta
 
 ## Acceptance criteria
 
-- [ ] The AI has created a suggestion for automated QA measures based on the quality objectives
-      in `doc/qualityobjectives.md`.
+- [ ] `doc/qameasures.md` lists the existing QA measures from TASK-0006, each with the quality
+      objectives it addresses.
+- [ ] The AI has created a suggestion for additional automated QA measures based on the
+      quality objectives in `doc/qualityobjectives.md` and the existing measures.
 - [ ] The suggestion has been discussed with the user, and the user has decided which QA
       measures are implemented.
 - [ ] `doc/qameasures.md` exists and lists the decided QA measures, each with the quality
       objectives it addresses.
 - [ ] `doc/qameasures.md` lists the suggested measures that were not chosen.
-- [ ] `doc/qameasures.md` states the rationale for the decision, as given by the user.
+- [ ] `doc/qameasures.md` states the rationale for each decision, as given by the user, or
+      marks it as "proposed by the AI, accepted by the user".
 - [ ] For the decided QA measures, additional tasks have been created with the skill `add-task`;
       `scripts/tasks.sh list open` shows them.
-- [ ] The table of measurements in `skills/perform-qa-measurements/SKILL.md` has a row for
-      every decided QA measure, with the status `planned (TASK-<NNNN>)` naming an existing
-      task, and lists only template measurements that still apply.
+- [ ] The table of measurements in `skills/perform-qa-measurements/SKILL.md` has a row with a
+      command and the status `active` for every existing QA measure, a row for every decided QA
+      measure with the status `planned (TASK-<NNNN>)` naming an existing task, and lists only
+      template measurements that still apply.
 - [ ] Each new task contains the acceptance criterion that its measure's row in the skill
       `perform-qa-measurements` has a command and the status `active`, and that the skill
       runs it successfully.

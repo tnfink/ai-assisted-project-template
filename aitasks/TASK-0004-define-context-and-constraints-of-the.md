@@ -14,7 +14,7 @@ The context and constraints of the application limit the options for the archite
 implementation. Knowing early which 3rd party systems must be included, which programming
 languages or frameworks are prescribed, which licenses of the components and frameworks used
 are acceptable, which legal or regulatory requirements apply and how the application will be
-operated and hosted prevents design decisions that would later have
+operated, distributed and hosted prevents design decisions that would later have
 to be reverted, and gives humans and AI agents a documented basis for all further work.
 
 ## Task description
@@ -28,15 +28,17 @@ questions:
   application (e.g. only permissive licenses such as MIT or Apache 2.0, no copyleft licenses
   such as the GPL, or a list approved by the company)?
 - Are there legal or regulatory requirements?
-- Are there constraints on operations and hosting (e.g. cloud providers, hosting location,
-  rules of the company's IT)?
+- Are there constraints on operations, distribution and hosting (e.g. cloud providers, hosting
+  location, rules of the company's IT, an app store or a download website, code signing, how
+  updates reach the users)?
 
 Before each question, give the user a few examples of what it could mean for this
 application, derived from `README.md` and `doc/qualityobjectives.md` (e.g. a company login
 for "only authorized users", an email system for notifications, data protection such as the
 GDPR if the application stores personal data, no copyleft licenses if the application is
-sold as closed source, or hosting that allows an easy move between
-clouds). The examples only help the user; they do not suggest an answer.
+sold as closed source, hosting that allows an easy move between clouds, or distribution as a
+signed download). Base the examples also on how the application is made available, as
+described in `README.md`. The examples only help the user; they do not suggest an answer.
 
 Record the results in `doc/context.md`, with one section per question.
 
@@ -48,7 +50,7 @@ are known. The answers come from the user; the AI asks for them and does not inv
 
 - [ ] The AI has asked the user about 3rd party systems, constraints on programming languages
       or frameworks, acceptable licenses of components and frameworks, legal or regulatory
-      requirements, and constraints on operations and hosting, and has given examples related to this application for each question.
+      requirements, and constraints on operations, distribution and hosting, and has given examples related to this application for each question.
 - [ ] `doc/context.md` exists and has one section per question.
 - [ ] `doc/context.md` describes the 3rd party systems that must be included, or states that
       there are none.
@@ -58,8 +60,8 @@ are known. The answers come from the user; the AI asks for them and does not inv
       frameworks, or states that there are no restrictions.
 - [ ] `doc/context.md` describes the legal and regulatory requirements, or states that there
       are none.
-- [ ] `doc/context.md` describes the constraints on operations and hosting, or states that
-      there are none.
+- [ ] `doc/context.md` describes the constraints on operations, distribution and hosting, or
+      states that there are none.
 - [ ] The content of `doc/context.md` is based on the user's answers.
 
 ## History

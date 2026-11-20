@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# check.sh - Consistency checks of the repository (scripts, tasks, skills, links).
+# check-consistency.sh - Consistency checks of the repository (scripts, tasks, skills, links).
 #
 # Usage:
-#   scripts/check.sh          Run all checks
-#   scripts/check.sh help     Show this help
+#   scripts/check-consistency.sh          Run all checks
+#   scripts/check-consistency.sh help     Show this help
 #
 # Checks (the IDs are those of the skill perform-qa-measurements):
 #   QA-2  Every scripts/*.sh has valid Bash syntax and is executable.
@@ -38,7 +38,7 @@ usage() {
 case "${1:-}" in
     "") ;;
     help|-h|--help) usage; exit 0 ;;
-    *) echo "Error: unknown argument '$1' (see: scripts/check.sh help)" >&2; exit 2 ;;
+    *) echo "Error: unknown argument '$1' (see: scripts/check-consistency.sh help)" >&2; exit 2 ;;
 esac
 
 FAILED=0

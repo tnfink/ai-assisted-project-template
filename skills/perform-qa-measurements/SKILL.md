@@ -23,14 +23,15 @@ measure whose implementation task is not yet `done` is listed with the status
 | ID   | Measurement                           | Command            | Passes when                    | Status |
 |------|---------------------------------------|--------------------|--------------------------------|--------|
 | QA-1 | Tests of the scripts                  | `scripts/test.sh`  | exit code 0, "0 failed"        | active |
-| QA-2 | Syntax and permissions of the scripts | `scripts/check.sh` | its line for QA-2 starts with `OK` | active |
-| QA-3 | Task files are readable               | `scripts/check.sh` | its line for QA-3 starts with `OK` | active |
-| QA-4 | Task dependencies exist and contain no cycle | `scripts/check.sh` | its line for QA-4 starts with `OK` | active |
-| QA-5 | Skills are well-formed and registered | `scripts/check.sh` | its line for QA-5 starts with `OK` | active |
-| QA-6 | Links in Markdown files are valid     | `scripts/check.sh` | its line for QA-6 starts with `OK` | active |
+| QA-2 | Syntax and permissions of the scripts | `scripts/check-consistency.sh` | its line for QA-2 starts with `OK` | active |
+| QA-3 | Task files are readable               | `scripts/check-consistency.sh` | its line for QA-3 starts with `OK` | active |
+| QA-4 | Task dependencies exist and contain no cycle | `scripts/check-consistency.sh` | its line for QA-4 starts with `OK` | active |
+| QA-5 | Skills are well-formed and registered | `scripts/check-consistency.sh` | its line for QA-5 starts with `OK` | active |
+| QA-6 | Links in Markdown files are valid     | `scripts/check-consistency.sh` | its line for QA-6 starts with `OK` | active |
 
-`scripts/check.sh` runs QA-2 to QA-6 in one call and prints the findings of every failed
-check; `scripts/check.sh help` describes each check. Run it once for all of its measurements.
+`scripts/check-consistency.sh` runs QA-2 to QA-6 in one call and prints the findings of every
+failed check; `scripts/check-consistency.sh help` describes each check. Run it once for all of
+its measurements.
 
 ## 1. Prepare
 

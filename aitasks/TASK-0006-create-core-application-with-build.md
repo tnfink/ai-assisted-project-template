@@ -56,6 +56,8 @@ Following the project conventions in `AGENTS.md`:
 - The section "About this project" in `AGENTS.md` names the tech stack and refers to
   `doc/buildAndTest.md` for the commands; the section "Development" in `README.md` refers to
   it as well.
+- The new top-level directories (e.g. for the source code and the tests) are listed with their
+  content in the table "Repository layout" in `AGENTS.md`.
 - The build output (e.g. `build/` or `target/` directories and caches of the build tool) is
   excluded in `.gitignore`.
 
@@ -81,6 +83,8 @@ Implementing actual features of the application is out of scope; they are added 
       application are documented in `doc/buildAndTest.md`.
 - [ ] The section "About this project" in `AGENTS.md` names the tech stack and refers to
       `doc/buildAndTest.md`; the section "Development" in `README.md` refers to it as well.
+- [ ] Every new top-level directory is listed with its content in the table "Repository
+      layout" in `AGENTS.md`.
 - [ ] `.gitignore` excludes the build output, and `git status` shows no build output after a
       build.
 
